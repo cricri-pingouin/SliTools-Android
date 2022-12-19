@@ -1,0 +1,1610 @@
+object HeaderFooterForm: THeaderFooterForm
+  Left = 0
+  Top = 0
+  Caption = 'Header Footer Form'
+  ClientHeight = 568
+  ClientWidth = 868
+  FormFactor.Width = 1440
+  FormFactor.Height = 900
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object Header: TToolBar
+    Size.Width = 868.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object HeaderLabel: TLabel
+      Align = Contents
+      Size.Width = 868.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'toollabel'
+      TextSettings.HorzAlign = Center
+      Text = 'SliTools : base converter'
+    end
+  end
+  object Footer: TToolBar
+    Align = Bottom
+    Anchors = [akLeft, akBottom]
+    Position.Y = 528.000000000000000000
+    Size.Width = 868.000000000000000000
+    Size.Height = 40.000000000000000000
+    Size.PlatformDefault = False
+    StyleLookup = 'bottomtoolbar'
+    TabOrder = 1
+    object trackPanel: TTrackBar
+      CanParentFocus = True
+      Frequency = 1.000000000000000000
+      Max = 10.000000000000000000
+      Orientation = Horizontal
+      Position.Y = 8.000000000000000000
+      Size.Width = 860.000000000000000000
+      Size.Height = 19.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      OnChange = trackPanelChange
+    end
+  end
+  object pnlBaseConv: TPanel
+    Position.Y = 46.000000000000000000
+    Size.Width = 297.000000000000000000
+    Size.Height = 442.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    object grpFrom: TGroupBox
+      Anchors = [akLeft, akTop, akRight]
+      Position.X = 8.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 281.000000000000000000
+      Size.Height = 209.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'From:'
+      TabOrder = 0
+      object radFromRoman: TRadioButton
+        GroupName = 'radFrom'
+        Position.X = 8.000000000000000000
+        Position.Y = 146.000000000000000000
+        Size.Width = 249.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 39
+        Text = 'Roman'
+        OnChange = radFromRomanChange
+      end
+      object edtFrom: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 41
+        Position.X = 8.000000000000000000
+        Position.Y = 171.000000000000000000
+        Size.Width = 185.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        OnTyping = edtFromTyping
+      end
+      object btnPaste: TButton
+        Position.X = 201.000000000000000000
+        Position.Y = 171.000000000000000000
+        Size.Width = 72.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 43
+        Text = 'Paste'
+        OnClick = btnPasteClick
+      end
+      object radFromBin: TRadioButton
+        GroupName = 'radFrom'
+        Position.X = 8.000000000000000000
+        Position.Y = 21.000000000000000000
+        Size.Width = 129.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 46
+        Text = 'Binary'
+        OnChange = radFromBinChange
+      end
+      object radFromOct: TRadioButton
+        GroupName = 'radFrom'
+        Position.X = 8.000000000000000000
+        Position.Y = 46.000000000000000000
+        Size.Width = 129.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 44
+        Text = 'Octal'
+        OnChange = radFromOctChange
+      end
+      object radFromDec: TRadioButton
+        GroupName = 'radFrom'
+        IsChecked = True
+        Position.X = 8.000000000000000000
+        Position.Y = 71.000000000000000000
+        Size.Width = 129.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 42
+        Text = 'Decimal'
+        OnChange = radFromDecChange
+      end
+      object radFromHex: TRadioButton
+        GroupName = 'radFrom'
+        Position.X = 8.000000000000000000
+        Position.Y = 96.000000000000000000
+        Size.Width = 129.000000000000000000
+        Size.Height = 16.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 40
+        Text = 'Hexadecimal'
+        OnChange = radFromHexChange
+      end
+      object radFromCustom: TRadioButton
+        GroupName = 'radFrom'
+        Position.X = 8.000000000000000000
+        Position.Y = 121.000000000000000000
+        Size.Width = 161.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 38
+        Text = 'Custom (max=36)'
+        OnChange = radFromCustomChange
+      end
+      object edtFromBase: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 45
+        Text = '36'
+        Position.X = 201.000000000000000000
+        Position.Y = 121.000000000000000000
+        Size.Width = 72.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+      end
+    end
+    object grpTo: TGroupBox
+      Anchors = [akLeft, akTop, akRight]
+      Position.X = 8.000000000000000000
+      Position.Y = 225.000000000000000000
+      Size.Width = 281.000000000000000000
+      Size.Height = 209.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'To:'
+      TabOrder = 1
+      object radToBin: TRadioButton
+        GroupName = 'radTo'
+        Position.X = 8.000000000000000000
+        Position.Y = 23.000000000000000000
+        Size.Width = 129.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 38
+        Text = 'Binary'
+        OnChange = radToBinChange
+      end
+      object radToOct: TRadioButton
+        GroupName = 'radTo'
+        Position.X = 8.000000000000000000
+        Position.Y = 48.000000000000000000
+        Size.Width = 129.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 39
+        Text = 'Octal'
+        OnChange = radToOctChange
+      end
+      object radToDec: TRadioButton
+        GroupName = 'radTo'
+        Position.X = 8.000000000000000000
+        Position.Y = 73.000000000000000000
+        Size.Width = 129.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 40
+        Text = 'Decimal'
+        OnChange = radToDecChange
+      end
+      object radToHex: TRadioButton
+        GroupName = 'radTo'
+        IsChecked = True
+        Position.X = 8.000000000000000000
+        Position.Y = 98.000000000000000000
+        Size.Width = 129.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 41
+        Text = 'Hexadecimal'
+        OnChange = radToHexChange
+      end
+      object radToCustom: TRadioButton
+        GroupName = 'radTo'
+        Position.X = 8.000000000000000000
+        Position.Y = 123.000000000000000000
+        Size.Width = 161.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 42
+        Text = 'Custom (max=36)'
+        OnChange = radToCustomChange
+      end
+      object radToRoman: TRadioButton
+        GroupName = 'radTo'
+        Position.X = 8.000000000000000000
+        Position.Y = 148.000000000000000000
+        Size.Width = 129.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 43
+        Text = 'Roman'
+        OnChange = radToRomanChange
+      end
+      object edtTo: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 44
+        Position.X = 8.000000000000000000
+        Position.Y = 173.000000000000000000
+        Size.Width = 185.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object btnCopy: TButton
+        Position.X = 201.000000000000000000
+        Position.Y = 170.000000000000000000
+        Size.Width = 72.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 46
+        Text = 'Copy'
+        OnClick = btnCopyClick
+      end
+      object edtToBase: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 45
+        Text = '36'
+        Position.X = 201.000000000000000000
+        Position.Y = 123.000000000000000000
+        Size.Width = 72.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+      end
+    end
+  end
+  object pnlPiCalc: TPanel
+    Position.X = 89.000000000000000000
+    Position.Y = 46.000000000000000000
+    Size.Width = 321.000000000000000000
+    Size.Height = 442.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 41
+    object btnStartStop: TButton
+      Position.X = 8.000000000000000000
+      Position.Y = 409.000000000000000000
+      Size.Width = 240.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Text = 'Calculate '#960
+      OnClick = btnStartStopClick
+    end
+    object memScreen: TMemo
+      Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+      DataDetectorTypes = []
+      Lines.Strings = (
+        'The Bailey-Borwein-Plouffe formula'
+        '(BBP) for calculating '#960' was discovered'
+        'in 1995 by Simon Plouffe.'
+        'Using base 16 math, the formula can'
+        'compute any particular digit of '#960
+        'returning the hexadecimal value of'
+        'the digit without having to compute'
+        'the intervening digits (digit'
+        'extraction).'
+        #960' = sum(k=0'#8594#8734')'
+        '((1/16)^k * ( 4/(8*k+1) - 2/(8*k+4)'
+        '- 1/(8*k+5) - 1/(8*k+6)))')
+      Anchors = [akLeft, akTop, akRight]
+      Position.X = 8.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 305.000000000000000000
+      Size.Height = 393.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      Viewport.Width = 301.000000000000000000
+      Viewport.Height = 389.000000000000000000
+    end
+    object btnCopyPi: TButton
+      Anchors = [akTop, akRight]
+      Position.X = 240.000000000000000000
+      Position.Y = 409.000000000000000000
+      Size.Width = 73.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Text = 'Copy'
+      OnClick = btnCopyPiClick
+    end
+  end
+  object pnlPwdGen: TPanel
+    Position.X = 153.000000000000000000
+    Position.Y = 45.000000000000000000
+    Size.Width = 295.000000000000000000
+    Size.Height = 467.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 42
+    object grpStdPwd: TGroupBox
+      Anchors = [akLeft, akTop, akRight]
+      Position.X = 8.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 279.000000000000000000
+      Size.Height = 289.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Random password'
+      TabOrder = 0
+      object edtRandomPwd: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 1
+        Position.X = 8.000000000000000000
+        Position.Y = 250.000000000000000000
+        Size.Width = 263.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object chkUpper: TCheckBox
+        IsChecked = True
+        Position.X = 8.000000000000000000
+        Position.Y = 21.000000000000000000
+        Size.Width = 263.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 2
+        Text = 'Uppercase letters'
+      end
+      object chkLower: TCheckBox
+        IsChecked = True
+        Position.X = 8.000000000000000000
+        Position.Y = 51.000000000000000000
+        Size.Width = 233.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 3
+        Text = 'Lowercase letters'
+      end
+      object chkNumerals: TCheckBox
+        IsChecked = True
+        Position.X = 8.000000000000000000
+        Position.Y = 81.000000000000000000
+        Size.Width = 263.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 4
+        Text = 'Numerals'
+      end
+      object chkSymbols: TCheckBox
+        Position.X = 8.000000000000000000
+        Position.Y = 111.000000000000000000
+        Size.Width = 263.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 5
+        Text = 'Symbols'
+      end
+      object edtSymbols: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 6
+        Text = '/?!'#163'$%&@#/*-+[]{}(),.;:'
+        Position.X = 8.000000000000000000
+        Position.Y = 141.000000000000000000
+        Size.Width = 263.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object lblPwdLength: TLabel
+        Position.X = 8.000000000000000000
+        Position.Y = 171.000000000000000000
+        Size.Width = 174.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        Text = 'Length:'
+        TabOrder = 7
+      end
+      object edtPwdLength: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 8
+        Text = '16'
+        Position.X = 190.000000000000000000
+        Position.Y = 171.000000000000000000
+        Size.Width = 81.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object btnGenPwd: TButton
+        Position.X = 8.000000000000000000
+        Position.Y = 217.000000000000000000
+        Size.Width = 263.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 38
+        Text = 'Generate password and copy'
+        OnClick = btnGenPwdClick
+      end
+    end
+    object grpSpeakable: TGroupBox
+      Anchors = [akLeft, akTop, akRight]
+      Position.X = 8.000000000000000000
+      Position.Y = 305.000000000000000000
+      Size.Width = 279.000000000000000000
+      Size.Height = 152.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Speakable password'
+      TabOrder = 1
+      object lblSyllables: TLabel
+        Position.X = 8.000000000000000000
+        Position.Y = 21.000000000000000000
+        Size.Width = 174.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        Text = 'Syllables:'
+        TabOrder = 38
+      end
+      object lblTrailNum: TLabel
+        Position.X = 8.000000000000000000
+        Position.Y = 51.000000000000000000
+        Size.Width = 174.000000000000000000
+        Size.Height = 23.000000000000000000
+        Size.PlatformDefault = False
+        Text = 'Trail numerals:'
+        TabOrder = 39
+      end
+      object edtSpeakablePwd: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 40
+        Position.X = 8.000000000000000000
+        Position.Y = 114.000000000000000000
+        Size.Width = 263.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object edtPwdSyllables: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 41
+        Text = '4'
+        Position.X = 190.000000000000000000
+        Position.Y = 21.000000000000000000
+        Size.Width = 81.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object edtPwdTrailNum: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 42
+        Text = '2'
+        Position.X = 190.000000000000000000
+        Position.Y = 51.000000000000000000
+        Size.Width = 81.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object btnSpeakablePwd: TButton
+        Position.X = 8.000000000000000000
+        Position.Y = 81.000000000000000000
+        Size.Width = 263.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 43
+        Text = 'Generate password and copy'
+        OnClick = btnSpeakablePwdClick
+      end
+    end
+  end
+  object pnlColor: TPanel
+    Position.X = 519.000000000000000000
+    Position.Y = 56.000000000000000000
+    Size.Width = 312.000000000000000000
+    Size.Height = 394.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 43
+    object ColorPanel1: TColorPanel
+      Color = claWhite
+      Position.X = 8.000000000000000000
+      Position.Y = 23.000000000000000000
+      Size.Width = 180.000000000000000000
+      Size.Height = 180.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      OnChange = ColorPanel1Change
+    end
+    object lblColorRGB: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 221.000000000000000000
+      Size.Width = 105.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'RGB:'
+      TabOrder = 1
+    end
+    object lblColorHEX: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 254.000000000000000000
+      Size.Width = 65.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'HEX:'
+      TabOrder = 2
+    end
+    object lblColorHSV: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 287.000000000000000000
+      Size.Width = 120.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'HSV:'
+      TabOrder = 3
+    end
+    object lblColorHSL: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 320.000000000000000000
+      Size.Width = 120.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'HSL:'
+      TabOrder = 4
+    end
+    object lblColorCMYK: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 353.000000000000000000
+      Size.Width = 120.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'CMYK:'
+      TabOrder = 5
+    end
+    object edtRGB: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 6
+      ReadOnly = True
+      Position.X = 70.000000000000000000
+      Position.Y = 221.000000000000000000
+      Size.Width = 170.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object edtHEX: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 7
+      ReadOnly = True
+      Position.X = 70.000000000000000000
+      Position.Y = 254.000000000000000000
+      Size.Width = 170.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object edtHSV: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 8
+      ReadOnly = True
+      Position.X = 70.000000000000000000
+      Position.Y = 287.000000000000000000
+      Size.Width = 170.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object edtHSL: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 9
+      ReadOnly = True
+      Position.X = 70.000000000000000000
+      Position.Y = 320.000000000000000000
+      Size.Width = 170.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object edtCMYK: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 10
+      ReadOnly = True
+      Position.X = 70.000000000000000000
+      Position.Y = 353.000000000000000000
+      Size.Width = 170.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object lblR: TLabel
+      Position.X = 209.000000000000000000
+      Position.Y = 23.000000000000000000
+      Size.Width = 25.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'R:'
+      TabOrder = 11
+    end
+    object lblG: TLabel
+      Position.X = 209.000000000000000000
+      Position.Y = 56.000000000000000000
+      Size.Width = 25.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'G:'
+      TabOrder = 12
+    end
+    object lblB: TLabel
+      Position.X = 209.000000000000000000
+      Position.Y = 87.000000000000000000
+      Size.Width = 25.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'B:'
+      TabOrder = 13
+    end
+    object edtR: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 14
+      Text = '255'
+      Position.X = 248.000000000000000000
+      Position.Y = 23.000000000000000000
+      Size.Width = 49.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      OnChange = edtRChange
+    end
+    object edtG: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 15
+      Text = '255'
+      Position.X = 248.000000000000000000
+      Position.Y = 56.000000000000000000
+      Size.Width = 49.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      OnChange = edtGChange
+    end
+    object edtB: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 16
+      Text = '255'
+      Position.X = 248.000000000000000000
+      Position.Y = 89.000000000000000000
+      Size.Width = 49.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      OnChange = edtBChange
+    end
+    object edtCopyRGB: TButton
+      Position.X = 248.000000000000000000
+      Position.Y = 220.000000000000000000
+      Size.Width = 49.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 17
+      Text = 'Copy'
+      OnClick = edtCopyRGBClick
+    end
+    object edtCopyHEX: TButton
+      Position.X = 248.000000000000000000
+      Position.Y = 253.000000000000000000
+      Size.Width = 49.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 18
+      Text = 'Copy'
+      OnClick = edtCopyHEXClick
+    end
+    object edtCopyHSV: TButton
+      Position.X = 248.000000000000000000
+      Position.Y = 286.000000000000000000
+      Size.Width = 49.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 19
+      Text = 'Copy'
+      OnClick = edtCopyHSVClick
+    end
+    object edtCopyHSL: TButton
+      Position.X = 248.000000000000000000
+      Position.Y = 319.000000000000000000
+      Size.Width = 49.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 20
+      Text = 'Copy'
+      OnClick = edtCopyHSLClick
+    end
+    object edtCopyCMYK: TButton
+      Position.X = 248.000000000000000000
+      Position.Y = 352.000000000000000000
+      Size.Width = 49.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 21
+      Text = 'Copy'
+      OnClick = edtCopyCMYKClick
+    end
+    object rectColor: TRectangle
+      Fill.Color = claWhite
+      HitTest = False
+      Position.X = 204.000000000000000000
+      Position.Y = 121.000000000000000000
+      Size.Width = 92.000000000000000000
+      Size.Height = 92.000000000000000000
+      Size.PlatformDefault = False
+      XRadius = 3.000000000000000000
+      YRadius = 3.000000000000000000
+    end
+  end
+  object pnlMPG: TPanel
+    Position.X = 575.000000000000000000
+    Position.Y = 260.000000000000000000
+    Size.Width = 289.000000000000000000
+    Size.Height = 242.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 44
+    object lblKm: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 167.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Kilometres'
+      TabOrder = 0
+    end
+    object lblMile: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 41.000000000000000000
+      Size.Width = 167.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Miles'
+      TabOrder = 1
+    end
+    object lblLitre: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 74.000000000000000000
+      Size.Width = 167.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Litres'
+      TabOrder = 2
+    end
+    object lblGallon: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 107.000000000000000000
+      Size.Width = 167.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Gallons (imperial)'
+      TabOrder = 3
+    end
+    object lblMpg: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 140.000000000000000000
+      Size.Width = 168.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'MPG'
+      TabOrder = 4
+    end
+    object lblLtKm: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 173.000000000000000000
+      Size.Width = 168.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Litres/100km'
+      TabOrder = 5
+    end
+    object edtKm: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 6
+      Position.X = 183.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 95.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      OnChange = edtKmChange
+    end
+    object edtMile: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 7
+      Position.X = 183.000000000000000000
+      Position.Y = 41.000000000000000000
+      Size.Width = 95.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      OnChange = edtMileChange
+    end
+    object edtLitre: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 8
+      Position.X = 183.000000000000000000
+      Position.Y = 74.000000000000000000
+      Size.Width = 95.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      OnChange = edtLitreChange
+    end
+    object edtGallon: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 9
+      Position.X = 183.000000000000000000
+      Position.Y = 107.000000000000000000
+      Size.Width = 95.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      OnChange = edtGallonChange
+    end
+    object edtMPG: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 10
+      ReadOnly = True
+      Position.X = 183.000000000000000000
+      Position.Y = 140.000000000000000000
+      Locked = True
+      Size.Width = 95.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object edtLtKm: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 11
+      ReadOnly = True
+      Position.X = 183.000000000000000000
+      Position.Y = 173.000000000000000000
+      Locked = True
+      Size.Width = 95.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object lblKPL: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 206.000000000000000000
+      Size.Width = 168.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'KPL'
+      TabOrder = 12
+    end
+    object edtKPL: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 13
+      ReadOnly = True
+      Position.X = 183.000000000000000000
+      Position.Y = 206.000000000000000000
+      Locked = True
+      Size.Width = 95.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+    end
+  end
+  object pnlResi: TPanel
+    Position.X = 270.000000000000000000
+    Position.Y = 56.000000000000000000
+    Size.Width = 311.000000000000000000
+    Size.Height = 474.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 45
+    object Grid1: TGrid
+      CanFocus = True
+      ClipChildren = True
+      Position.X = 8.000000000000000000
+      Position.Y = 99.000000000000000000
+      Size.Width = 289.000000000000000000
+      Size.Height = 317.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      RowHeight = 30.000000000000000000
+      RowCount = 10
+      Options = [ColLines, RowLines, AutoDisplacement]
+      OnDrawColumnCell = Grid1DrawColumnCell
+      OnCellClick = Grid1CellClick
+      Viewport.Width = 285.000000000000000000
+      Viewport.Height = 313.000000000000000000
+      object Column1: TColumn
+        OnGesture = Column1Gesture
+        OnTap = Column1Tap
+        Size.Width = 70.000000000000000000
+      end
+      object Column2: TColumn
+        Size.Width = 70.000000000000000000
+      end
+      object Column3: TColumn
+        Size.Width = 70.000000000000000000
+      end
+      object Column4: TColumn
+        Size.Width = 70.000000000000000000
+      end
+    end
+    object Image1: TImage
+      MultiResBitmap = <
+        item
+          Width = 271
+          Height = 55
+          PNG = {
+            89504E470D0A1A0A0000000D494844520000010F0000003708060000001271CF
+            4A000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+            4D5749444154785EEDBD69B0A64976DF75DEFDBDEFDDEBD6DA55DD3DD3D3B368
+            4623C9121222841D206C130ACC12F00107260C84090B024C847104617DC00207
+            44F8830C843061EB83092B803076D88009240B23F02224B0244B9AAD6755CF4C
+            6FD5B5DDBAEBBB2FFC7E279FE7DE5B35D5254D476846D54D56E57D9E27339F5C
+            4E9EF3CF7332F3C9B7B1C2C5FBCA2DE3BCC1CDFC7B91028D46B9AE96F3582E66
+            D16C36A2D96A95C074CB08C263B5E09617173C9BC18A6B83AB7E3A266BAEBEB7
+            22C3568FF7286B3A8FE8F549C3A3EFB4D74AF88CF00669BBDD58CCE7D1ECB4B3
+            1C72CCBFCD55335A8D0B75E57DE30CC9EA1AA6E3C1F805F56AB432265DBE6984
+            E1CD662C787B5535B4BC5AEE4D9779D6F9E9AA6C0CB24C1DA489A655C4CDC977
+            C50B0DFE35F3EFB99304BA2581759617E3AD9264A34A6774D75D2C5EF7F8B375
+            34ACCEFFACCF7CA62ECDBAB6CB592C27C3988D87319F9CC6F8E42426A3712C2C
+            34D3AFA2D36945BB5DE8BD582CA0CF2AAF4D2AD5A869443AEF4DD76A76C8BD1D
+            83CDCDE8ADD17F4DFA4D62744A1F4F618B4EA7CB4BD5FB5C9FE82E12E21975EF
+            43F0A03FCFC4E01B3B36FB546040C4100D1FF84FFAF92C56333CC0B15A4E620E
+            408C4F87E9A7C353F0629260B35CC2804A1FA0A3DBDF3F88E3A31318AF6F16C9
+            586B83416C6CEFC4CEEE5EECEE5D8D56B7173DAE056C28B755A4C98E512CADA7
+            82A9338FC4321E2D6645DDE8C48C4B29ACCAAD42C00BE215EECC4CE168D3B222
+            5EBAFAAACB920878842A049EE5555DEBF899E0C90BD6CE38C3CDC3F4E6530BB5
+            CEF83A1FDD852884B5C4995E5F35E11197F1E5B664D60054F9F7485269B79A41
+            A351B4FB9DA073E2CBAF7C3ABEFEEA9700EE497496C304E60E02BF725020D305
+            39376887CF6D007A02819F166FDFB4DADDE8F67BD11F6C467F633BB6B62EC7E6
+            EE9568AEEF3020081C000CEFAE444DF3B15FDE83EE7D0A1E4F76851119EB6763
+            061438B401784C47B1383D89E3C38378B87F9FEB3EA3D9098C8114CF18C3D114
+            622E23CBD15C91D224294C339DCCE38B5FFC72BCF2992FC600466B4737C1634E
+            498D160C060ABCF4E18FC5731F78295EFEC427E2FAF3CF4730A2A57424C3D5DE
+            9A717514B3F27503B2C2A5DC74B52455578143D73C93E2059A8D82D0E58D5619
+            F109ADEB9EA9D4941E2750465465E8040D8468BE9803642299244063E29F02D3
+            6E294004EAABA22FBC9DF4D1B7D08EEAD17DC9FB7558A937A0D470342FCEF82A
+            ABD49E523A01EABC5A4E46F0DCE45D0024C6C7F1E0ADAFC7577FE567130C0481
+            1A0C04818BCF5E53CEABE7C7D33F1EBF00B8D45E1ACD5EB47B1BB1B67185C1E0
+            6AEC5CB9151B3BD7A2BDBD4765EC37295B5E7410E0F56CC33780DE33EAFE7FF0
+            A85C76A611AB290F85F94E1FDE89830777E3E4F07E4C0090D1291AC6E838FA1D
+            446FA5B094D149EFE8A486B262F45B2E97804407C168C72B9FFB42FCDCCFFC9D
+            D862546AAC008F1CB5D662389DC5C1C9697CF8E3DF192F7FE727E3EA0B2FC40B
+            2F7F289EFFC8CBAA278C6008250093C26CDEE1BD0CC9B38F5638D58922F8C559
+            07BCAAB40298EA388EFAACA86F113A9E1B9A4BE603F029802974255D96972692
+            05E878216FEB3270AA0AE665FA0E913C2FD1CA9ABD01C9291B808A15659B4F0D
+            5C66F988238F39B4D6D90EBD795E4C675DCF5C1D417E96FBB8B3BD4BF213D44F
+            F7E3ABAF7E316EBFF1D5684D8F636F7927264BEA539910021610F0C8B3AE0635
+            3585778A077EB150DA818E49448FA71ED62860DC18C4FAF6B5D8BC74235EF8C8
+            27A2B5B681890A3DA001B0682E49414BC6F839A3EEB3ECDED7E0F148072AA032
+            1FE0B1181EC4FD3BAFC5BDB7BE96C0A1A6D1C024E9A04D74DB8E4413BADFB11B
+            26E0B5A66A2DA0B182A9050E99CD1179D05D8F57BFF2D5F8CB3FF5D331E86FC4
+            72AC3CC368A459B5DA31446B79F93B3E11FFC4EFFFE19891BEBBBD1197AE5F8B
+            973EF691585B1F447B0003A61A0C132F6564AF55AD9D7751F818FD55D7170081
+            D32FFA56B71BC72743AE1DF0A71DA7801E2FC6FA00D0001C16936AC477845E8C
+            53CD5F2DA6B44393AB1133342AD3D5ACE1F5DCD4E34A7B331D65373BCD188FD1
+            D43087B6D6B7E2C1FD03A8D2A5A66A36500800941602576A2920ADEDEFF54943
+            73265300D9B255EF8976BEE171D14A8CACC0C311BC055DCCAB0B0DDB682AA911
+            CCA631A51D8BF938EEDC7E837ABC8D86318F3E62AEBBD47C804972315FDB53F2
+            AC9D6D3A178727C71B3E81EE0DE73F3A6BB46B8DE7564C16F45367331ADDCDB8
+            74E385B87CE3C5D8B876933000465A0222453FA5EDC0C7A32D7C36DDFB123C9C
+            32756A2F3BD0D64B0281232742C7F1D52F7C2A1EBCFDB5383DBC1BBDE63CD600
+            0C05B581B074119606E0E1A8DDACB402F349EDC37C61B066036881F7068C3C6F
+            7CFD76FCE49FFF6F631D1BBCB968C5068CBF9CCD6384BFF3F024AEBC7035FEB5
+            7FFB8FC5ACCB08A53001042D046B737727AE5C6124DBD84248BA5451C666F45A
+            AC72D26F321DC768781493C908D3093B5FE0B26DA41933F2BFFAB5D763349E47
+            6FAD9FE1FDB52EF5E9C610206933626E0DD66367AB1F6B3D841A1059CD87801F
+            A0616AB5075C29B38CC682A3AEC108EFE4AD138B73051D809A4C26083E9A1100
+            F7F9CF7E31EEDEBE9FC0DA6C74116EAE0879DAFD983ACADF04417FE183B7E2D6
+            73D70963345F02C6D015FC00B826A9B55D145C695B3BCD00A086F2C993FB36C9
+            04978593A3D061A179433B04C4BDDD2DBA53E08CD8ED0FF35AB37B0182F29CCD
+            C6094835803D2D7E89D9622E0BB42BF58865A39F1AC898FED5CF5BEBF1C18F7E
+            326EBDFC1D813A42BA1624055CA089DC227494DC9F6DF7BED53C1C4B535BE6DF
+            723ACC515000790DE078ED373F074F0FA303483400932EA3979A86ACD268C249
+            AAED30900C9679E05B15B3E9DACD4ECCA6F3D8DED8C6DC59C44FFEC45F88C3FD
+            2346FC555CDFBB0620B5E3CDBB6FC712CEEF5DDA8A3FFAEFFCF1B87BFC30D6B6
+            378B1990D64619F9128C285DEDC39EB2BBCA4A807547EBC0E4A8856B8599B4C4
+            3B12FECDFFE567E2EDBB0F000FD4E9CD0D341E016D1E5304BD316BC4E18307F1
+            CFFEFEDF1BDFF59D2F4713E058CE47D45B41C1FC484637C37301CEF6524E4EB5
+            02980AF814616D3202A7FD0FA0AC7537E2177EE197E2D77FF93700BC3E600550
+            42AAF91CDAD156EB7E707C40AD97F13DDFF73DF1C3FFD40F017443C80970B730
+            07104E05B4B411FD8346AAA5A84E19D6228F66BB136335376B429875E226EF0B
+            CD8AF03BC6677E408D6E7BDD374A7C01A6FA5E77DECED47C78EF9DE2750DE20B
+            7C3469BBE400300092197ECAFD02F098621ABEFC89EF8DAB2F7F9CB669BEF488
+            17509DF1B0EF9E7DF72855DE476E0543A615CAA8AB00C47C120F5EFBCD38DEBF
+            136D4C970EBE0D787461BE36696442D560C413E1C243395743BD3A1A29DF798F
+            5F320EB53B8C42A8F30ACDC6C6068CDC064C3673B2AE6358BF176B68187D847A
+            C528D941383BCD59B4B16D3AAB11E54E62AD318C410CF3BAD6388D417314EBAD
+            31D7D3586B9E10A6E7BE710C209D468FFB6E8C63A30B6B8F8FE2E19D37E3EE9B
+            5F8FFB6FBD19FB6FBF150FEFDE8E7DFC1B5FFB1A66D99B711FF57E67D0A5EC29
+            DAD52CFACD696CAD3562C0FD5A1B8DABA35FE675409BD7091B20E4E54A1A7CBF
+            218D5CC998409B09755BC4E8E1C3387D70370E6FBF1927F76EC7FCE8612C8E8F
+            624CD8F0C1FD38B9BB1FA7F7EEF02E79027E6B94BB4EDBBD761A63C2A7D16D4E
+            B89AFFACDC13D7A3AC5E8C30454EF1C7B186EFAD2ABFA4ED0B007F3924ED3CB5
+            29FBCC25777D23B51FFA598D253BEAF167351F740280E169F13E37D02CF53AC1
+            B4491B305CF00030F58FF9317D7A14A707776271F44066CBB46A1CE4F49E000E
+            9D6D795FBA5C4ECD511400814117C3C3B8F3C6D76274743F0558E048C000449A
+            156838D20B386DD0C2D1A966485576D5E80640A05F3872A2CE8FA6081620B1BB
+            BB1B83C120CD90F5F5F5E876312178EEF59C0FC0CC98A0F90838F81682D3A34C
+            2CE91870AFCF7B0468D09A20B884B5F43CB70118C27BDCE71501EB2260B7AE5E
+            8A75CCA0D9701CC32384F6E438C6A3514EF80E4F4EE3E1D1613C3C9CC71BB7DF
+            8AED2DB41204A3D7A54D0841073342EF7C6DF1E51E2C4488BD2EA34B80A0D8E3
+            DAEBB6D138680F40B8D1EBC5E59D9D9C875581EA62877420710BF563311EC59C
+            FA803B39F7333C3C009478170DA687396319ADA62611344003520BCAAB65B7C9
+            C72BCF02EC3AE0B8D19BC7A6D7EE3CD629A4F6030AEEA891016682464EA0EA35
+            31ED23FAEC1DAF559F3E35DE914290A9A040EDA805083601AC367CD416F8E81F
+            AF470FEF0020FB94ED20855F62065626D07BC1BD6FC1A3385553186C3C8C0346
+            C8D1C94354F831A3D61853A0681C4D184373C525D8DC2F911E738591479BBB98
+            103EC39C956F200C75B81B8B3636058A5EF4FB7DAE7D54FE5E747ADD049D5CF2
+            9CA3C8BB1A0278287002959A488FB27A0894F32E1D00CC7B276CDBC9A8083ABE
+            CBE8DF451B68ABF633EA77117647C2F96C62B36286A0AA65A9FABBAC3CC59CA2
+            0531459EEEDCBD9BCAB726499B72958F252644837234CF4A5B3549B8FA8CCFA5
+            68EAA909A45F60E6F8EC7E13F359C74CD2AAB3CCE59CF4DCB711DC06A6CB72C2
+            03FF37FB6EC1B062D435418334CA36F782456A76D29C70C1D5896AAC950413CB
+            77C2BA8989D900209A39F7443F615ADA57057C6C8FDD4B18577D9A3FCED5C8F2
+            EF78A51282CC53E2EDF7AC5D6A1F3E4BCD9A47CA2A9C20D7A5E1A393C3383A7C
+            2851F1A67B6F3928F2FE7332BB137ED9A974FCF1BDB7E3EE5BAFC3E84E3E9E26
+            63B6613C358D9CE74821D23B250A23ADCEBDA30951C5F6AE5CD7615200C8AB3C
+            07DBC03C6E24D3B5908446AB4B1DD03CDADD680126A691C1DD63E024A3237787
+            3085A045E62D04C83A38E506DB669882E4E4A571A6AB35A22182399B22B88041
+            B7DF8EFE006DA73F8876770D21EC51663F176F2653570EA081EDA23C3521E9A2
+            C0B6044024BA89349B67EDF319404C704C492F22B1A47D92534DEBF2E5354CB5
+            ADE853DED6D656DCBC712B9EBFF942DCB87A232EEFEEC4F6F64EEE81198F5CDD
+            721586B2CC8ABCCCDF951901D8BCBDD61A9D7139C1937331964B1C75B72E17EB
+            D8EE601A427B41E362DFFD765C82CC6FC7011479A13A56C9FE6E3999ECADBB84
+            A1C78CFE3E393C7216D88CB3CAD6E9BDE2DE434DF9E61C6C29672141C37870FF
+            4E1C1F60AE382CCE27F045018E163AA6D7A275D8F30A706142F790C9346501CE
+            0C356B923F72F26EC5F0EB52A2AB13028269DC959A2091A31B30A0C41033186C
+            2018800940A04B405035266D3327D9CABDDE77321C64D0673879E4BDC24D5AF3
+            DBDDDB8BEBD776E3C68D9B7119A1DDBB72352EED5D89DD4B5762FBF265EE3763
+            FBD26E2EE5767B40A46D158C008E14361A57CAACEFF585640AA742EAA4A99A95
+            D7DA6F6E6EA649D6EF7453D35AAFEED7002CB592AD8DEDD8D9DA06587A295002
+            AD79E82DC37A34EB3A54FE0C58F24AD9E4D76C0982006F82AFBEE4A1B7923570
+            A45A836F0B4212D73C9F74F5569FF4F4E6C9F182847D9D13B46A5B954B5EC08B
+            296DFAD63EECA0593AEF85BA571211FF5E72855BDF67AEB0113D896ABF7FEF6E
+            1CA35AE64C3C8CDB8159DC5F98EAB08C9302547C19F1605EAEB07AC69B975ED5
+            5CE6C9C538866041433DC5F904E7083419560BD4FC19232E7ECED03F9D2DE2E8
+            F8048E53809CFFE8243894950681C5720506C25C016976C9913A34FB5C796EA8
+            29A8C110CEBDF91866DADEDA66AC6FECC4DA60337AFD8DE8022883AD9DD8D8D9
+            8DCB7B576373070146B85338CD926B5969A1FE3558783DBB27EBCA6C59D80E00
+            5653ABAC72409ACA6C1114EAFD176B68323DDA3567E4D58CAA278A7BDD2E20E2
+            5C4B23E355FB5D19E9F08EF973299A96C0CC734E321B673DF9934642435AF89D
+            49877A34A90F300F18CDA0BD69DC092A6808DCA9CD012A4DEA6ABF3CF12A65B9
+            0A324F8BF76AFFA6FD454D8AC9A627A6F209E4D4ABDBEDE79E99DC37437BA070
+            AECEBC579CD2F0FE7374F6D23981D149DCBF7B3B46C707B97FC38D52327D4973
+            0E16FA840984F3229830BEF0CF6B792EA054D295CD60305A95D6BD0D32D17038
+            CC7907972F27A8ED070F4FC0B0298C09AFAB722328A6B778CB2F6051CC0464A0
+            E42783FB2C78E849E7C7736946E146A3D3DC7B314368C78C7A33CAF283AEB535
+            CD898D0404E34E4E4E3171A68001A56812E05A94E55273072FF0E953F8F0829B
+            E9CABC8DC2E18E59B51068607D6C03A68EA3AEF96BA6CD9DCF41A8ADAFEFA460
+            8F5D55816AD0C749CDF99CF613AEB075DA3DEE2B8D0A1A9C7B85B2D026CBC5B7
+            9D3742E348B3C6496B3DEF4A47D359EFE9D87AB8FF03D105DCA450BDCFAE7E16
+            F4EA655C41E669F1E904D3040C1A5CF148024765C2CEA79437714E07909D8E00
+            4EEEE9C9ECD3BCFBE6DDBB79E777DA156EFB669D2DF976FBECCC277B99B1DED4
+            A4836FCE5FB5C31172D5E003CC95C387F7100CCC149700305974C2016C447ABF
+            ADD09C90A1BD1620582A005CF5EEADD02BC432BDE6C6D2EDD990761315DDDD85
+            F385BB3151D111DC45050E93214C85DD3F194ED0649C2425CFC9082174746254
+            87615D6248C1207D19911973B1971A8D6A2473745EA29560DA34C8A3D8DC7346
+            7CEA00D30A20870F1FC6C307FB717A74CCF53E0C8EFD4D9AEDCDF578F870186F
+            DF3D8CFE602B852E4D81E61AF920984B3C94D0FB6D8C1A90DA8E5BECE7338489
+            76A623CE895301449A0B32B64D601C2344CEBFCCD5BA109C1126E2E9E97182CC
+            0A30DDD9DC00500423CA45E027E4AB06A1EE57342ECD371323A84EFA2A9C8CE8
+            6E24532067684A0BE34CA38604A89A8F20D7A67E82869A8D9E869106BD30B5B3
+            725F3F9F79E829C83C2DDEBE90333A593FFBDD38353FEF4BDF3AE1DD5C8D7377
+            EB7C78003D315BE857DB332F542BBC78E6D560CEF9B77E3EF725A64EFF6D7755
+            45DE1D78FC2E77C57E2E307F669B723144F6F3617E7A12E393A3DC63E1ACBC2B
+            1DB9CA804AAAC690237E8E2A828382A39C14E6D195318970194DA77454E4ECF5
+            D630015608CB38E737FCFAB4982AABD8DEBD145BDBBB31A74E32DB7CBC8C8307
+            079833B314BCF1A46C254F7B5D47585D66D143688BC0629A14323C5705D25754
+            B315E6D75F7F3D1E3C789013A78EFCD2C1EBE1D1C35C1A3E3E3E043C8EE2F0E0
+            34BA681239E7425BD58AFC2EA568330087D550ABA9CA2A732E454BC970EA5634
+            82AABE38416B3C9DC468388E2926CE581073C998B039F41D8D4671787898DA58
+            5D3797B7053035B6A42365D8B2DA250D00C9FAFE7C1EC611BD0069EDCD531E10
+            340A986088BA0484B39BD42CA45EFDFC8803649E1AFF8813E8F4A5672C5B974B
+            C4809A80EF9CCE9441C1E52DFB0552A5C1F3A8F37DFE4103BDB95CF4BA8ACB7E
+            77B8AA62EFAE4E175BF6AE7C2500EFD6EB14EC64ECF2F8A8B35974881D41BCBB
+            FA5C724C1011FB314F8ED1388E0EEE23B4653F409930941154471140EB293328
+            1C54DAD137AFD9005CD6A378CBD12DB90A16798581A79A0B4E4862E7FB09BE2B
+            1DEEFF68A16EF7D7D763B0B195DF90CD606CE71F3ADD629B5725647D52681C05
+            73842B8C9DA5558C5AA729A3236DC6BB04FCE0E13E82EB76B5550C311F0E3151
+            4608F1C9E969ECEFEF63B20C11E2791C1E1F25D8D906CBF6ABDF0407F2AFF3CE
+            3A48CFAA627598C0225DCAE4AE825DE87E78324AF3430D408D6B8859665DACE3
+            0980728230DD3F384C30C93C09B79E82503DBA176FBF918030D3A557FA2C2781
+            BDEE671EF9A3AFC1A8068D3A2FC305841A1474F5730180E26B90D13D29BED443
+            AD9378EB75D15B17C20541EF351705DDD35307A8A279648DB3BEDCE0AD8D1E9D
+            29D3A6E959FBCA955A9C7B6B464BBFEDFEBC86DF3267E3EBEBBBF1175D76C505
+            42D37955936A818673F8C37BA97DC0189A0427078CF66FE75C8740D2200C5B83
+            A492C4D40548E8CBECF074C9E532AAD77357975333AF5E7BBF2C2BB652783A6B
+            6B71F3F95BB1796927C1E5989177EBD21E7E57C526D37650DD1DA1EB51BC66FA
+            734F7EC9B9C62BA8368DE764DC22243902E3330F04B70720490F27E964E412D7
+            46DB388E13378D61A53DB8BF9F82E51C0CADCE7C1338792FF3CCFA94724A3DAA
+            FC2B9AD7733499A672FD412FB676766363679BEBA59CA45DDBDC8AC1D676B407
+            0300D4ADDAAB98AAE5916FB3E7642F624116D22FCBA02E996F2554B5E950DA6F
+            5C693381E55AF57BBE4BFDBA4EC456F7FA8B40F2CEDE2DFC08E813E3F4D60500
+            87DE091616CF950800A3005F316F8A4993DBE4B9F7FBA39A0757D58C29CD2C2C
+            E963092A8EBCCE9C343EF3D5F3999353BF1DD77377B136CF8CCB4EAB69ECD567
+            9A227D6D62F6859D80479C0924D411052DC39D5387F7DF8AE1FEDD588C4F607E
+            34114725E702D02690854AEB28A3974C93D9E9C9263F867BCCD5A061AAA58CC4
+            08AE19803CC6E948D36515EB681EFADEBA2B1FEBB177ED7A5CBF752B2E5DBD1C
+            1E402396ABF514D5B6307C010C0D95E27369B79A6BC8389F6BE7BD20D26AC7ED
+            3B77B9F23EF570AC729F470FA1CDD51ADE7789766B733B36369AA995A8A9E4BC
+            03E99D5A504014840222A5AC5A88D512D4E6CE04CA700526E9621F34E2231FFB
+            0EDA7525DB7BF5C67371E9CAD5ACFB043AD8F6DD6BD762FBEA5E0AA15BE30A00
+            96FC6C6F96435EDEEBEA7AE82CC67D327E6CE7E4AEDA4DFA6A9257AF2664DF25
+            0D930205100A8F9867F1F5F3924E4FCFBDEF3D2DDE6B5D5F322DF5AEE753F404
+            4F193C347FB20E6437190D6331C41C75850A53ADAE81699D629167BDCA42C946
+            BA0B6D2E8E378C4B9AFCEEF0ADFF04C7DDB7D04915A9E0F59BF7D999DC251D09
+            32F4A2CB70FC59789A23291100086AF2F030DE7EEDCB717A70173019C26CE4B8
+            42FB48365679F6C09C192686AB09CEDE2BC488048559BABD9C8C78A16CAFC908
+            5580751485C42CE70F6EBF7517CC9A6016F4A2DDED63C23002AFF5F383B5C97C
+            123B97B662F7D246AC6F2808AB5CC1C8D11221F00B5D35064BB18CA25D281486
+            C0DCD68B87143CDE01B562B26CC5BDFDD3B8FADC4B71EDC6F3F1C2073F14379E
+            7B2E2E5FD98BAB57AF5AC1D8DEDA891D00E4C55BD7E2131F7D9E360F53641B0A
+            430285F992300BA21CF3A60C4B16402D2E81D939026852981E759DB8C38313EE
+            15E82E6DDC42ABEA23602D807310FD8DB5D8DEBB84C9D68F0F7FFC43E10AF412
+            002F825E4C8D3AFF86995A0E0F8292C065408296425CDDA78A882B13BBA44DED
+            81EED624ADA45173D1ADE5E5DDEABDB32BEF274DBDF75DFBFC9DE2A18574C1D9
+            BD0A91F1869423199C205F00703DD275D13C319411F8B67B5E3676F28B69DF31
+            5FF127C96A36254B8BFC4667D8C5F0BCAF03BED5D773D7FAF11FFFF16F008F24
+            D8535CDD21EFE47EABF7B3224A4256E89BF4FC2F9D761E6A4861AFE2CBFC85E1
+            0082BA61CE4FCC637EB81F0FEEBC1E0F6FBF1ACBC961B8092CC73EB73A73558F
+            740F83276475BBADE876145E5EA5BD85B56558DA4E5896259313A2D6A0ABA992
+            BB2D738470F46BC7C30787A8AEE4D95EE319A1EAAD25542513A2486C6CF76263
+            ABEFD10F008C9EB292B99CFF90318BA06461BC6339DE4AC30C22240106E15822
+            B06FDED98FBB0F4FD03676A3DD1BA081B8C4DA8C35CC89B5413FF3BDB47D2976
+            01904D84F8E673DB8C8843E830CF8D4D424412D009E4142447E0AA24830B09F8
+            C30D04727F452EF7F2AE9F9FDF7EFB412A7A1EBDD843D358DF001C2FEFC6A5CB
+            97D17A2E419646ECEE6DC78DE73D82916C1213C88BFF6A11E037CF05A892BA59
+            18C1DCD876E7B0AC811640A95779F6DE3EC93D273C79C647762079753DCB045A
+            26E8F80A61A95165FB2A70B09D4E9EAB2EBC437CB9522BEF2D2FF3AC2A087068
+            F6E85C3172E566266D08D794F53BA03E1A9E6D2A55B6357A73326BEB9AB119FA
+            B82F7F7EEB6BE665563CFF4E5CB382389A50DD7DCBAE382AF16E5D36C02BBE28
+            BD93F411DA9523EE4780028290F730CF728847651CEFC7C1DDAFC51BAF7E1685
+            E361B416A3FCF8AD81365203C723DF6A5040AD49C81CE71E66A9EA7F6EAE9C3B
+            05DD15839AA1A6D32902D2438036728F85E75FA8EAF6D6FCD07F999BB5B67777
+            7349D655887A2FC41943E22CA398358455AAFC939CCCEDBBEE7DE8AFADE7BD9A
+            8EA3B913B2DB5BBBB96DFCD6AD17E2CAF56B71E5DAD5DC336163DDBEEE6ECD8B
+            E5CA1ED2E06C6A2CDB5FC2A44FADA6DBB37388E232B46DDBA13D7910111A47BB
+            CF080C70797EC9E1F024A6023B60B6B5B79B733DF59E15CBADE4EE0C2C4ABB05
+            2EF1A400D7D9EA16AEF4C7A3DEF2CFDAC1BD40A977FEE1F1B4B5E74F75B5EFCA
+            4ADD3BC5E7557AD80F17FAA2841767BD73BB007CD50328FD98EFE0EE6BF1FA57
+            3E1D6F7DE9D72386F7E0C70710ED00E21DE3D1D4BCC293A8C3E45E56FF0AB39F
+            FB55A2B6FEECF2C46BBADFC1EB5979AB25DD0984BB4E5F86007AD05E32367B91
+            E72A3C077169C6B5D8E6103AE9E71F7BBE89FA8BB0387A54CFF91EF91415D87C
+            54271D61600A8244EA649EAA1F16AE5068435A34CEB24CE760A05B3A09D582B0
+            2BF765080EEE5B2091997A45F83233E33213D21E3312BFF546ECBFFD7A4C4F8E
+            A3911FBF0118A9A29691CAE3E55C46B45D73F25C67841EF4D71C57488B09411B
+            9A0B18DC9DA7649F27861396005255DE164B32378329BC2830311D2FE2B5AFBE
+            1D47FBC7313D85295ABD9891DEF9059731FD186DF7F220B6B7BB0837DAC11AE5
+            31E2EB5A2BBF79814ED0CD7C57D47749B96A566A263969C9E8A621E71B0B329B
+            A32A1FC0839FFDE25BF1E090F6B43600901EE0D001C846A97D385A9E1E9D4417
+            14D8D968C6777FC7A568C3BC9EAEEAEED096EA9079BA9F441AE54ECED221FE75
+            A7A59BC15C5E9556768E1BA4960B00237AF1EA97DF88B75EBB136DCA1EA07978
+            A6E9BDFD0791DFCEC067F6F7F66E2F6E3EBF1BEB5B982A6DCAF2EB65778BCED5
+            06E50DCBB555B68D764007CFCDD0F9F1A0AE06B5D408CE1CF490AFE087D97894
+            3B4E753D34AC155A5F6A0AB4B3EE379F6DD599F02F219EF47E8778C3BDF57AFE
+            5C348ED9745C96BA7956E35841C725FD412FC7CC0E84369E5B3B00C4B7B6F7C8
+            1F5A00744DBF39C2EF5DBB8569B7198DCE5ACAAAED2BB254DA2DEFABC174903B
+            CBCDF9192B2343525ECA86FC5FD52D5DA92CD67BA18366B827F45B67FBE12CFE
+            C23BB6A5453EEE8ACEFC78AED3A5E73E4DC3D56ACA9BBC61DBF8339B3AE36F87
+            16A2D588E12953AAE345B0EDACFA255E27DCBC339CF455FE67CF67E97CC5271A
+            7F9E08C7FDDC8AD298FC99039E6D800DAA47A5730711E8E0C5F830EEBFF97584
+            F3388EEEBF1DFD4E33776F666756A399C4F57B95C57818E3938358213C9A2ACE
+            29A47A592D65FA8E5513405608AE1DB4BEBE96DF62B89AD0443094E7D6520686
+            39E0CE64EE6408AA538897C2A4F3D9362E733DAF15AF7EE16B717C388AE9709E
+            1FA2C9C46D6C5FCB695097BDCBEB71F9AADFA3C0488D09C22620586697B4D2BB
+            80B1E0917801C0D5E051460035254482B48B663FA68D41FCE22F7F0E86DD8CE1
+            9CD11466DCDDDB89D1F828CB74727178328CEB982E9B6BABF8C0732DAE8B18D0
+            AEC9781CBD66397878A1E6A6C967F9555B93BE50CBC1C6A30F05DC5C05B1C68B
+            36F41AC4D75FF5CC90DBE4B542B359C3FCF3A4ADB21C2D4B3890B43BCB78E923
+            37A2BF4E9E9493872CA9D208081459B6829736E78639C215469D0BA1BA338DA8
+            A27FCD279EA76A3FCD26E55B225D67E039A3F29D94A50F7109FA3E73355DF21B
+            5A6C7E7BF40EF13A77D0EAAA64C4714F9CE0E11E9779AEA858FBB2D2259E4C11
+            5EE9A456EAE1491D4D579A3C237E068F2C31F136773C487937BA6B9B0928CE9B
+            E44EE44939294EFA15BF9EDFCC8C4E4EA95ED9E2EF40243FABC1CAB39456CC4B
+            9E854B499BA0CAD59DB7C6BBC3D7ABEFD5F1E6B7A262F57B6AB1E667FEB96397
+            ABB2A5FC3426C387A979C8A3A25CAAED50C5F31AEC3019B5BED6E1A697014C6F
+            78A22DA4F2537399CAC666D7AA9938422792534DDE2F576A690A2A509FDCA4FA
+            6C07D5CB5BAAFBF5BDDE7BDF7375A48529F2DA575E8937BFFAC5D874C26D7A9C
+            EAE162364AE29E8E26D9413A47A91E75EE3469F49CB6918FC68E7312F9D97872
+            00ED93012A46F584AC8D8D416CAC0F92602EAF35F52682E0B506903CAD231C36
+            C7578FE60F63488FB5EE66FCF22FFE728C8EA109E0E3D180FD8D753A6119A780
+            DD60732DB67607091E57AE6D24F3D25F498BC64A61A1CCDC866EB9644AA135FD
+            6AF0A0F659F6023A2E9ADD389D77E367FECE2F318ADD88A3533ABDB7CE28FF5C
+            6A6C2E1B2EA8C7041AF5A8F7F1C337E387BEFF03716D0F730970951AFD16A334
+            65D4E0510BADD262B803BFFCA2D69174CE9190317AD58D6E7B109FFEB52FC4BD
+            DB0708593F81633C2E1397BD5E37061B8249278E870FE27B7FE01380A8734CA7
+            C9570A8A3C55963329474AD240C9AE06506B789EB52A950B78082AD69A340962
+            D497780155F0B02F746D8F5B44200B5D4B4F1997CFD5C8AE5BCE87D049B07E72
+            BC35513BAACBCA10AA61FB26F0AC7C9B8302EFB9F2E66EDC09265BF232C0D177
+            DE0393AE686CF03C002170CCD0FB3C85ACB7BE83497725F9C41DB77EB7E43E1C
+            85587931EF29E16EBADB7FF02036363763CF7924CAF21301276B3B6AB50228F7
+            6A1A7E4BA4A66BBCCF5436D34B195702D522A4789EB2AF27CC7CD45066783F6E
+            34DDF6D6565EEB81BDF1FFFEE2CFAFEAC62AC00AAA5F45D602AB37CEC43A6D72
+            E31DE545BF5AA80500D3F9ACDD9899F36C3E49C8AA40DD7CA169232838BBDE44
+            E0FDE6621D22F5096BD001A89CB3298C6E474C612AEBE137120AB09FCB53F6C3
+            B7F3B4ACC6F4347650F5FB08860C7374740893A02AC280898E94BDD669A11023
+            0AA3A33C0CD823E316390AC91CD61BC6840953F340586674EC20C1633DD57899
+            D9F328048F04D1C2C38F80876DB30B0CA2D8A447BF07205CBA1A7FFDBFFF1B31
+            3A9D22587D3AB489AABE89500F63889677FDB96B8C368C3ABBFDB874792D3A5D
+            CFEC20EF241537A417DF123C1C9DB3042AA0B697A3A2352719E5D7E0316B6EC4
+            4FFF0FFF73F40637C01D00090196E66B837682E262D98EF1905179328FAFFFE6
+            67E28FFEE17F26AE5E82398780B03C6099D0B2365B4A09321DEDA47CC5D57E4D
+            634F0D4CFA41033828FAEDF5F8C2677F335EF98D2F2690AC0FB67319B8F008FD
+            B4869020606FDF7D237EE45FF861FA6A16E33926136695838E23730D1EB9355D
+            AA8A564974BD7F8BE620A8185E34041F4A3CBD4479F42340E9B73D3ACF544182
+            F2BE068F1A8CE4910427EAB85A00A06AC6B827C5E773F28DE591C630EAB9A0D3
+            0B700014D45D27C6295B730450B7061D34DD36015007284D9585A654973E02E0
+            83EBE5ABB7626D67377F07CC012EF7EB001EA01FCDB33E9607EDC9F3E1C387F9
+            1573776D2D26C8A3FB7AD251B73975B15CF95099352C41A26A439E9EA7D7593F
+            99D636594695E6CCD4E17D7FB3C815337742BBC9D138CC96939511754132459D
+            E902152C1193B01A04DC3BB0A0625622D3E27CD7384143576B14BA3A4D760CDE
+            FAB969EADEDB6FC6F1D1695C429DDE417DF62B4DCF7770DBB1A315B892C49FCE
+            C6C9987E36AEEDDC68C00CA8A4CB83B7637A78371EDCFE6AB40085E9E93E442A
+            80C1A00E9F14953FC1CFF990396D61644D756F2A4838BA88C48EEA053CD43A14
+            08AFAE4AF8215957334D2E154030431C8F05389DE0919D915CCCA5621A5DD961
+            D98BEB376EC55FFA2FFF628C8FC7E455565B24C2684E5B3BDDB8F1C273D8FF9B
+            71EDB9DDE86FC2A26DC1175A4A3784582D4FE7D6791A91E5A73057E0613AEB90
+            C0A73A4A99FB27CBF8DBFFE73F8CFDA3557CEDF5BBB1BDB317B76EDD8CE75FBC
+            02B81EC59B6FEF63469DC60B576FC4BDB7BE12FFDE1FFF1701D84974E903B752
+            77D1186C4DEA68A9FB3ACA9EF7630D1E59972402B493F7969DD4B4BEF2CAD7E2
+            FFFADF7F016D907C50C97776769237D6D618657947007FEBEEEBF1C77EF48F44
+            13CD638619DAA27FC7630615FA8D446466FB3253D469353DCA4F4D0CF6841605
+            DC0C3B078F5AD8651C97DBF37068F3C2EDEC6EE4FC47F2304D4A7EA4DBF259A6
+            ACDAE7E70952FC9DE21324F39910AE998E7BF94EE098CCA44949EB6FE4F845B1
+            3C2887958F085BB1B6DE8F13B4B1067CBE04A816D0FB70388BD76E3F88295AE1
+            60739730688E9737D5C6E4454FA153B35E5BDF6070437B450ECDCF3EBD77EF5E
+            028993F2D25A99CCBEA29FACAF69EB015F301750F4D63B4D2DD29BB6C6805A01
+            A8F353B130CE30CB7672BFF1EBBFF27753F3F06523EB976DB0997AF5E5BA125E
+            EFDCB993E92DD84A99CE8A58792B767C7C9CEF5990EF9A67DD09BE6F7ABFBDB0
+            D19750B9AE5DBB9671329571124A22F95E129EAB8D30CC51A7DF6DC5C93E36F5
+            C1DDD8ED2DA3373F89D1D19D189F1EE708A35AEEC76BB9559C3A3A1279849E93
+            A44B98CEF31F64AA158CBD22AD48951F7A212839A38D97991D25AC7FDB0FCF10
+            56993AD928C1837C7D5707432513159ECA36FAB19A82FFC2CD17E32FFE573F15
+            87FBC76847D8B1B4E5840ECCB4D8AA2E21EE3D7739BEFF07BF0750A50C8FB1EB
+            55F4A23C3FB25350FC54DE1FA1F217E91C79083A030FEBE2B73239A98876D3DD
+            B81A3FF597FF6A7CEA73AFC79D7BD0F8CAF5B87CF9523CFFC2D5DCA27EFBEE41
+            9C1E8FE2D2000DE8C1EBF1E7FFDC9FC4143CA068FA1B50EB355DD624BFA6E6A7
+            6D869135DF68A382A78667B1D966E945AF2828FEE4C2A0BD199FFAD557E267FF
+            D6CF610A3D97F5F7FC0EF9C2C95AD5ED3BF7EE026CF7E24FFDD89F8896E0D198
+            A01D458CD13CEC1BDB96E55E000FCBF0537CEB2578589182AB0965D4456017E4
+            4A88FC39F5CBD60AE837363C45DEC10BBAE67BE6543DE36BA77DAFCAAE7B527C
+            D6439E320CFAD74E13451AB8A3D8CF12321D155443D0F387FF45533B41DEA6D6
+            D7C110B0F4E71A4E67AB789BBE3A4423ECA2AD4DD4BE794D7EA9E501094C9AFB
+            CD92029CE61383DB78388AA313787FE0270FEB683898416AEAC4279FC1BB6A3A
+            7EBD6DB8A7EFBBD2E5DC8D73567E056C5B3D67D7CF297AF481743B3D3EC94F2B
+            3C46C253F8FDF6CAF704A1A1F3497FFB6FFD772B09AD1300AC6C3205DE7009A5
+            00E90C53308E87A78974AA4D866D6F6FC7F5EBD713084C6B3E17F334ACEE84FC
+            AD4F3ACF7C747559C619E6B52ED3FB3A1FEB657CD6CBD1617A126F7EE5B3F1E0
+            F52FC5767B1ADB982E0B7F97140DA3D31DC4844E9CD1992A055DDEED319A3BFF
+            A171D2E9387251EEDCFCEC12B40FE767E808B58E86C7E0A162B7F25B932623B1
+            AB080874F644CD8F32752D50A55E179D8C4451B1B77B39FEC79FFE6BF1C6D7DF
+            8CADC14EB6E1140699C1441398EB74721ACF7DF085F8E7FFE51FC10406D8BA6A
+            5ED2A28087F3000A516ADC157850E223E0617CCE3FD0CEB49F5783F8B37FEEBF
+            8E575F3B22BC45BF5C8EDDDDED58DFECC6FDFD7DCAD864049AC5D1DD0780EE21
+            F5FBB3680CA39870DF77AB78C10CCA9926FD123C7C86D952F01004CDA5E28A20
+            09949D552F06FDEDB8FFD641FC37685B5B83DDFCF90957ADA4CFC9E951BCFEC6
+            6DCCB60D40EC24FEE3FFEC3F8AE8C1B8F4DF1C13298F0E10D86D9BF9E2337F81
+            9B9E2B9EB834A7CEC1A39EB7123C2C475ED1BC9C63F2CE10205DBF47DDE95FEB
+            6AD5B3FF6D9B7C77D696A2313A20BE53BC65A58CC80455BFAB1D648D899BA19D
+            3AC7E147866A29CE1B50111982763120C3977747B3D8BC7623F95413BABDB615
+            97AEDD8C0FBCFC31AECFD32E81506D5FED389B4A39F241A907552A8EBC9D28D7
+            1AA0C1254CB9328169AB01DCE4BE695B32BECA279DF77AC369573ADA9FF7E689
+            FC66BCF7A611588DCBFA2C8FD5F54B82FA659F33C1858C2F66405572A9E6627A
+            2B06739D39384010C8D513E3B82F84560A1CA92A50B07255FC591DCEF2C3D7AE
+            2A3FF300FDFCE4FCD5CFFF46FCD2DFFBB93C20B8391F45BF637D1424D2D2A132
+            BBBFE3B1604455DA3CA97C0013793A77032D84EEA1880ECC51804A66A9C1C31E
+            D34617FCFC4EC24FBC337D5685F87430D61380C367D15AC0E9A16DFCAF7FE37F
+            8B573EF54A5CBE742DDC3E7D8ACA379CFA4979C4D178181FFAF8CBF1AFFCE17F
+            2926ABD358DF6024F2D09D0A3CD4BC641EC1C370699ACBA2A58AD4515043F052
+            E2A85D673DB6F75E887FF347FF43CC9355F4375051DDD5BAE9E465F9CD94D319
+            66D3701E43B4A10E75FD4B7FE14FC5E52DDE5D309AC0E42D2768B380D247F462
+            7585F692D63E905E958AE0BDF5EA35D6123C8EEE8FE3C77FEC273085226E5CBE
+            46BEE4E08B3847BE078727316BCEE33FFDCFFF74AC7A53406FC248EC2A071463
+            E413782F82472A37D6A1325B18DFB39F0ADDA13FF4B0AFF359C1B31FA98FB41B
+            BB510C7769BB4F7E15BF3EE6CA17BAB64733C349DB47D35D8C4F6D432DAC7A4E
+            2FA84A03D0CC439E724141F0A03D02A2AB6E691A53AF29E1D75FFE78DCF8E0CB
+            B9E354D37585A9E971080D8036E739A0BF34A78404D264049CF098939AC9DF7A
+            EAA949EE1C0DCF2B071A06BB82AABC5385FB6651E7B8D6CFCEDDD9C53ED7E978
+            2E27CD0B5A960930A389E6A716F06BDBB917E26D48CAC96AE562D1B7DA51F977
+            ED6CA1EA603970650E882C3C3A10E2D87E3BDAD1BD2D91253AD4DF7F702F3EFF
+            B9CFC45BAFBD163D8066A331CC93B6654AD569CDB64E17A6A523EA49D39C8824
+            1F4FB4EAC22C2D3ACAC953C3D41A8A134ECE3522473B99D63A7856C7A0B306D3
+            5E8DBFFA57FE5AFC839FFF8DB876691D4D46DBB111C780C614D29FCC26D14523
+            F877FF831F65045A20E43DEAED8A57E94C5D32683E14616EAF5C7624DC876486
+            129E9DBDECC6B55B1F8B3FF26FFD89786B1F1684395535D70678B3A6AEF78753
+            6C5634B3A319A6CA2A7EF2BFF8F7E3231FDC450BB99B2799CF3DFFD46C018F14
+            0A18DE6B0D26E96072F145677BEC51B7D3F75B9A42F3F8337FFA27621720F4DC
+            8B9E36234869BC47130C796FDE9AC68FFD993F191B3BED182D8EA1B9CBBE1401
+            8D93BCB4EBDC6CB114844933D376D32705C0F115CDF53A854E00526847CE0938
+            8782DB1AD00ED228928260ED7CCEBFB62F03007E47D7CA7D43BCED26CC5DA8F6
+            41AE3EF08EF1395F22865B1580CE1370FD25B95973102EB6DD7AE963F1D2C7BF
+            3B36AEDDB2A19957664FFED58DF0405EB4F32CE4092E232924DFFFF65DF92B9A
+            7FAB3DC5BE6BCFFB10B7897ADE59DF89B5DDEBB171E5C5185C7D09FF72AC5DF9
+            50F4F63E10ADDDE7A3B573335A979E8F2B2F7D77FCE0EFFB91F89E1FFCA763B0
+            F73C36F63AA6179DDED6BC41F013E9652AC020515730804161045778DCB82643
+            CDD196049A040A7AB0BECAB767F7F87A9E268FC523BDF338C82C4CC1880EE105
+            9B3C8E70E4EC3CC56518ED821BF3CC4B1D9D23B35BA6F9796F9D7C3F0525EB46
+            BDF430536E704345CF28845FF5DB7D72E5783EEACAD55FAA9B00B65957132A00
+            164FBE73806CA1A947855210D23B024BF36AD44D479DA405E5CDD3342C7499D8
+            4E84D59F9B50D3B19B5CF19AA8AEFB6E0ABC026C0EC411949BCC4863FB1CADF5
+            B641FAE8CFEB71EEAD8F9A89FDB2E29AB401F4F509FE4EFA528FB201CFB9AD42
+            47972EEBFD19257FF490EA5967FB5283E1FAF478F9827BE98FCFB926F23FDB82
+            90A7BAD3674E88DB6CFA55CDE2EAAD97E3C6CBDF1DEB573E0039077009A65CA3
+            C755EF263CD29DC986147F8AAB01E7DB7CE5EED9733989985C4F2B64F0DAD3E1
+            E59E66C100390B27C3E1BB97AEC4473EFEC978E9C3DF119BDCCF886B60526873
+            363ABD5CBA755CCD2F5779D7D14D2048A1835A8E088E8C33195C6641700A633A
+            F215012FA75DF10E4CA4B9533B854C6C50581C11DD819A9B7F647E0A4DA14906
+            449810C4647E7C3D919D33F608BEF78699360545A173AEA3BEAFBCCE150E6F8B
+            D0394A96FA7B6AB9C2E7F2B7FA0259A540A8AEE7845FD6AD9453FB521FC0612C
+            105E00CFFC2B78599FF3F7FC5909077C05D8F6926D6E5D8742296C9E5F629B4D
+            EB3B8273E699ED2A8705E93DB468EC06BFDA4F3C1DCD7D2AB697F7F25AB7BBF4
+            81C0E63921A56FCA06AB5267E72268071AEB597BAAE747DAAA7F4ABCFE8CFE94
+            5F9753D783DB0473AF0A981DEF7CDA8D9B0C62376F95F989F7887B26C1A3FE26
+            027E288CABCCDA69B5A7F36416448708CC0C4662039BEB5BF1E14FFE9EF8C087
+            3F11DB7B3763E428DE46EB80D317DC8BFC8591010C4796CC8BFC2B6111447C4E
+            86C991A6680485694AB842A0D7F95C8FA2BC8E00C894A8ED4E984E494BFE2635
+            DCE3FA489EEFBAA94A0636DF8B792968326FD9F34299945F33AD5E6D40A6C6D6
+            CA1F9AD2343EAF4F51B76DA70031D35A0518336FC923D14C239D687F6EF926ED
+            99AF9CA91E6FA757E9E2BC8B75107C9DF09E122E58A4A6623CC9D3AB01514D35
+            158F23A8EB5FD3B0F675197539B533AEA42FC02D2D2CFF5C0B502329C0510BBC
+            F4ACE3ACE23B9571DEF7EF5407C3CEEB28C319E76D1D3687BE0E36F2A2B4585B
+            DF0C4FAF77E26A01683FDA9A67D79D73C533E6B2031C556982CA45F277ED657C
+            46DBB96A261A4667B041C7B97F80846B1BF1DC073F1A575EFC509CCC19715B7D
+            988E51D90CD03A54F1EBD1778A5743C830842AE50DE64A0049863967227D32D1
+            AA8C8032ABCC6B7A477E1E630448B894E75E00F94A274FBA8D7B342A1BEE2CF7
+            49F9D6CEF914CB489F82730E5E5E6BEF5C0E97144E4F69D7BCF02B4FAA9E6D52
+            E3F11D69E7739A01D455976D364D9557D62305AABCA330FAE15782829E48C3BD
+            2680D00677340A5E588531E5C61DB55E334C3A929F80A5A0995E5F97A79EE77C
+            472DB4BCC5559A09A6D6CBB4E7A05340F3DC3B01AEA998A0413BF43528A4D665
+            7ADB523DA7E957D5DF7E7B5ABCBEF4733620EB96F4318DE513671A59CDF6BA25
+            7D67F772F4B776A16CD1429E61B17BC43D93AD900195277D3E179E4F40D11BAF
+            706A72E4CA8BCD041818EC33418BCEBC7CF3C5E86C6CC7BCD181E14907CB1635
+            BE620218BB0844C51815335B56CD2C357397E722C83EEB9C0350E55528D404B0
+            0A88673C726F875FBAB6FDE84D13ABB4C3F73431145AEF8B69716EC2785FE79D
+            F5A904E551EF88BB4AC1C9BA90D611D877054477B76ABE945C88E346D2B993B7
+            CED332DC9559CA75C47E5465AF373D99675D6EBE2BA072D5BBA2629B57D28A3F
+            B9B7C0F77D4F3A13A70CD5F31A6916526ED699AB79973A9F6B0DB6C9F9207D01
+            AE0B66DD633EE945E3048DBA8E1668DE8586D4ADBAD7D7F52EE54B91778EAFF3
+            ABBDA66A2E2527DAD80EDBA7B98CA968306DDBD8DA0ECF5BF09B919CDB7A8FB8
+            67123C9CDAC8E98DCA2382E9ED769D613ACFB09041654E9BDA75A9A9D56300E8
+            C6CEF59B71F3031FE6BECC777832956AA5CB79328C0C21715CC59149927192B9
+            1E65A6DA27332940C65769120C08F3EC525956BECC2B6538396B0986C1E3BC5F
+            989AD7CE185341104C9C3798E69C0740000A293C6EA12FF1DFE8159E5CA2A401
+            3503ABED38FA2B542DDAE96701A58E9A4D45EBA985F1A2E09CF91CF50BB898C6
+            792797DBDDBB9013B5AAE3E45FD323E94E5B4C3FA54C3537F738A48C511F82AB
+            F616DAE59C8B79E5FBD2AFBCABCFADF749B9E26AFAD4EFE684B69E321C2C5C65
+            91F6C6B97AA31F0E4714E77C56B5014FE03E7BAE3DC440B89F166FBBA673CD4A
+            4CCF8A5E75F9457BE315F298421FB55D57AA5CEAB4A353FB396FC633EF9E49F0
+            D0C954F6944C56FB5CAAADE29DA44CE7449D8C7616C31513A5BD79296EBDF852
+            4E966ADAB8CE5EE0A23067310B0A73CA2017473919B9140F3390467FF1DEB439
+            EE2BA0E60AC331F625488C18C9DD9A9C80605A22DC08391CF93566A933C199BF
+            DD5318B9D4DDBA388A6B1A789FF5CC328D5398C98F38CB174028B6BC4782C9D4
+            9596395AC53C3FB22A1F3E420DB22E2335E052B5D1F7FD7983FCBE08A0F21301
+            D3D4BE4EA3C93123BF925ECFBDF34B99AFF4B0ECE26DBB75154CC7132735012D
+            F272439513B1AED29877E671965F259C6450D3D6F7533BA00F6B70F1598014B4
+            136C2C4BDA011A753ED26A349C94C9D8C7AECE3915ADC62DDC4F8F5703CAF657
+            FD50D7ABAE8BF57287B3A6626E3C1480D03641EB0222853AD5F5D976CF287838
+            62AAE6338AD282DAA746422CDD95DFA478AF77DBADE37C76B042DDECE63E8C9D
+            CBD7621D5B74C91B45C5354F46988A2C3992E688CA688C77F94D469491DC9EEB
+            4F2B289039236F7C0AB4F9ABBDF863D230ECC43D247DEE11524657E73D529577
+            74A524F75DB828E45C88DF303872BAC35080CA4940F2CB151AE2EB65517D9645
+            BCF556AB50680DD354733BB31F2F5A15578D34BDDCFBE01C903B38ADBF2EC187
+            EBFEC13E5A592741A29E2B4880AA68A67008400261621AF9E48A973851DD4B27
+            295776BC6A0A21B0582FCA93CB9E3429DBA5D9E66B82E66B6FBCC9E0DCC93A3A
+            6AAB11655BED0BE943FAD4CEF00202C1992E9794F1399F91F7A425BF7A6ECA3E
+            2893C2B44370C3FB5D546A34A44B30E27AF66C9EE49DD7ECC3778EB73FF405BC
+            CAE4AFBF0FE3DE987C071A580FDBE9E0E0C1479E219B0D06507D47570F0A8FFB
+            67C9152979D69C1D507582DD757E5F30FD1BBB8034B5A3D37DF2942B4FF1BE7C
+            F57A1E96E3399B7EE59B4C6B960A053767C2934CA547AB9049F085518BCAAD40
+            CBB002492D6C3AEF1B5DEC6D2A45D1C95C5304CDC3621406B55BB2E2DEE7524E
+            617AF202E0BCCF119F7BAF0956DC3B5ABB4FC4F98A5C56A47C577214FE7BF7EF
+            C7DEDE5E6A1E730A48A6A46DB653EDC630D35BAECE36D62B15697A41D07ACE25
+            47582A5AB74F9FE6410299F53DBFCFF6031AAE26991724241E3A919742936D47
+            D89CCF963ACAA0DFB3586F81B6BEE7D5CCB7BED63EEB9E57EB570084ECB25C35
+            9831349BE09D5BF15D41C32573FD145AA5C6421D8C1318EA67AF593FC20BC8BC
+            73BCC0E2BDB4AB350D5D4943DE4954C21C40BC3218D1038C60681D5C324B5CBE
+            FB987B52D8EF66575AFE4C3A7AB2A6B5BBDE921DCF3DDD78E61F770A28389F1D
+            7BFDBADF18F4E95405DCC9531893571CA5CBCA4A493F47789C6B50281C553C67
+            213700A996568C62757292163071441488040A8536CF05426AFCC901F83D47E1
+            6424045B21CB3C4C432E29BC6A1D78EB23C0A4B75EBC5FFF36AB87ED5A5E32F0
+            CA0941C35671707010972EEF25B3D244EA5BCE8210D0043CEB89BC597452A7DE
+            DB605C310BAAF2533869BBE1D68367855C00A83584DA1BA619A2F9713A1AE63B
+            966F9D2107F70A52D96B221DA4B15EC0F07D699DA040580D10967D5E86CF0251
+            FDEC3DF4E5A6F609B800867438199E2668A8CDE9055001510028F32B02500550
+            965D5D0599A7C5D7BED68AE430B7A15B66D69D662768C81795D95A54E3F2A1E4
+            45E5E222583C6BC0A17B36C1C30E9019DF85A38FE94884A964125B3B97636D7D
+            9B8E47F813043A9570CAE835B328043523B9920293C229C9D053AE306C3D2ABB
+            34AA9F3B52330CF95B2C6D5473653CC140CD026F3E79E6670A551162CD049954
+            40284050DDE365D6645433CA6EE3DD4C27E316E6F55906B51E9A74BEEF41CE0A
+            91602010E5F6F84A137239559776BD1A8CE61715A80558E0ABB58BC5BCE4EDC8
+            9BE64125BC65F4B75D9A11020BEF0834F81C9D0B99638500F94D922B2D229AA0
+            966978CF096497316D47D298BC17A0AD65AA25A5C7ECCB0963CB9D1946BD88F7
+            CB68BF89F1E065692A0066BDA987A051E62AFC8CA19A9FA0520A6A6A8FD5B3D7
+            A41FE182CCD3E2A5BBE59467CBBFE0E11BC89CCE771C5CAC4F9E138B7B124018
+            F6A4F067C13D9BE05109CF6FD717ADA012D40C71969F0EA373410E4C976B6011
+            CC0770CC6142945D340418B71AE10B637285316426993BF72768AEC01C0A650A
+            11F7A6B938827AFC9CAB2D16CD6B09009A0269A2E0D35CA12A8A90EF18E7CECC
+            5C2E45237097632E7356236B4E30325A8F475E01A751315FF4A3D12427F9E648
+            989F4DFB7D574ED6C2D129B808C6F9A1C30E862688FC01A81A741CB947E4AB1F
+            038CC55B6E799E20B8633D025ABCF52DF32E0287F53BD3D8688F5748986D74DF
+            834BB57ACBF5C437300061F77DDB6C7B4B7E0944104C5F83B52B18173DC1BCEF
+            1E1DC14680115C96313C1D8507E8081AC5D42C5BDED537EDABB25C7AFE7C0690
+            E6415B9F1AAFB76FD3C3530206E5A7A7A17467F299F1B9A7A3D92887F4547578
+            2FB967B635F4558E68BF95CB74175CBD44AA1650DE6FC415C063B0B1932081CC
+            C0ECD8BD2B7F2A510190891440041B46928973C4E459A63D1B7DBCA64E5AF256
+            8B70BEC2558C3C0FB263D932160C96C9488FF7FAB82A7BA6C50012CE69E46A04
+            1A8C3FDB283894B90E4C0D2A5BE63910BCDC3A7EBE1AE2C8D75F53F800170048
+            E0703522570B1032AA4BD9E5A3BE9363CC0C2AE77C8113BC659F47997749CD4A
+            E1ADEEFD98CF15A321694E296F98F7BC83B07B42BAFE943841C5F6423EE8463D
+            00C4DCB0667DAC2361FE24A682699DF4B625CBCAF91DBD6DE43AA15CAEB329F4
+            9736820AF528F5A2DD63DA9FF5F65DE79CD44ECA0A4BA7D54D2F4DA4AD61B5AB
+            9FF5C64B978B02FEA4F8425B818338EA5E6FB537ACD650F29D8A07FAEBFE429E
+            F32833F286DBE0998BFDFDB8B39F9E15F74C828780405FE5F5B7F2B5337D3155
+            BC169552A1173C36B6F762EFDA73A8F31ED05B3E5252F398120F8F26A3231B30
+            2C8C8C97D153801158575DFC9622B75A5742908C0BF3E48F5BFB32646E33DAC3
+            8B95DA4EB980868C9A00E27FC30514EE73BE011547B3273F3853E804895C2A2C
+            F74E523A62A796038AD55E2676C44DAD82FF542B5D0D2AE667FE1624F33B8FF1
+            F0E024EB5904B4BAA69022A0864384E22BCD47B05068F31E9A54A02040B82BF7
+            E1C141026F8381D7E918C95C7EA6C11DBC3908673BF70F8E523BC95FD3470B11
+            00CA7232F973EFCA944073EE4BDB0508979C4DE37BA64BA049BA28C06846F48F
+            A091E61E7E4ABF28FCD228DB86AF9F539BD0433C69F4B4F8D432A17DD24E40E1
+            7A91F6966D7FE9E4033F135005AC41411ED03D09249E25E0D03D93E0F16E5DF9
+            B4BB68099E5991DCEDD088E9B27BF96AB4D636A2BDB61933185DF3A57C915A54
+            D134571C511098023A95533A1E73C9C030533D0999CB9CBCA2D942D139D74196
+            792FB359ADDABE2EA79B194ED93CE7FC01F9E54425011E8A3BE25ED3A1CC3328
+            D4C6E3690BB21FA7682759F7728C49AC31F2295C32AE87327BD644DAE34B853D
+            E2E0F8987800C639860582A6B6C1286EB9CE2F28AC0297664BCE37D4F311D4A3
+            A8F2822BDAD9A2D0ECE094FC6C6097B6A07595F98E5E347B3DC8DD8A76BF15FD
+            81BFE30B2D11AC097455AB1288F5FE8A9EDA92422848A4D992E68BF7682AB45B
+            604B3A64387EEEDC875BE2DDDB410B292F81833AA587BEF3D41A688FFB6C10EC
+            FA59BA78A29CFD2AC83C2D3EAF942F2FC817A25F6A19E935D7D03CED470621AA
+            1A1B9B3B053C543D1F7317C1E259030EDD33091E92D98A7BFDED7AD33BC83B35
+            D7B5A3E8D8DC45989DDA89BD9B1F8C5B1FFA589CC268134C9655DB9F0BE832D2
+            330AC1B9F9A9388CD4759251819731E11E9928991C664FB080E9DC9DEAFC83C0
+            927B2A109EB14C4625C648B31F8C3936E58136D519191EFDE6E4A187F4CCE74E
+            1E5607C434BB800B0C2BE02C8B704C971D4C83659C8CD484105EE768089BF0CE
+            A2318869F469D67A5CDA598FEDF56674A8EB16C038E8AF47AF3588F5B52D40A4
+            13BB9736DD6C2BFFC7ED7B0FA9BBC2DF49405238F3337D0184F6F09842A1602E
+            67800120E759262B4064398526730F9DF6D4EEB282D2F6CCDE7ECF19DBE80C36
+            630968CD5BED686FAC457BBD1DC05B9CCE2671172DE5180D6E454526D066EE4F
+            5FAC105CFEA5405237814970035F6238867E0A397E4C5DE60D40A2B5C63B7DDE
+            580358BAB47D031072D2B37C92A0577328DA49E923AFF573AD6939496B9F3E2D
+            9E6AE7C0D0A0621E9453008677C8DFE577772CB77A5BB469153B576EC5D6DE75
+            DE81CF5CCDA39F79FD118D58D078168143F74C8287EE9B25779DDEAB23C999AB
+            01A4EB4F205C8D9B1F78397AEB5B8C6A301BBCD0F5874518A973FE0126777EE0
+            F464943B11FDFA55464BEDA1F2F53E8006CC5DEE317D603CF9CA49534228AA9F
+            9AC829F939A2C27794259074A2DBF3373BD661B21EA0D420CD82917C160F8F50
+            CF1196551B7000DC26008947F54F1809C730F590EBE9BC19433580662F1E1C30
+            FAD306358DF5F5F26B75DDDE7A6CEDEC711DC4DAC0DF906DC7DA6617215FA7AC
+            661EFF3FF7A021C068913F560428411FB758030729A8FA05F5F4A09B19E5A7B6
+            03688C155404770CF8A8B9F5B768873F9CB5B3136B94D9A48CCEE62E7E2BD6F7
+            AEC4E695BD18602E16E15F07544B1E23EB41FE13C1D0FC166EB62A699A5D7F65
+            7F37DBBE404857D0690E508E97A6A37CE822DD66783512FBAFD5F557FA36E228
+            F79E007E8021588806A1B6579ED5B49CEBF147BF0599A7C50FE9B3DAA4A92772
+            D524FD71240F349ED3F631C0BAAE297CF5269AC79E289AF9AA89689DBE57DCB7
+            E187AEBFFDAEC60E3591E294F646FE9E86BF2DF2A52F7D016DC35F3073B49AC6
+            C9D11182EFCF0630C229E98EB85E322347B8CAC3688E44C6B9BC3866C472B9F0
+            F4641C9FFAD4171064479F2682EA4629B589050315EA3BDCFA9DDFF3F1186C6E
+            22308C72004E4E8E328AAFD03C1A08BD47F4FBE3400AAC2680DFE378F2F68AFC
+            CBC77D08319A4ECED50026A7981D1EA6EB8F0775010F240840390027BBB177FD
+            5AAC6FAC633AA885A09DECEEC4B5EBD75368CAE430C08740F8C38765F5C9B34E
+            281BEFE18D6585C37A5326611EE66B7CAE569176FFF0244E260A55F98E087B90
+            B856310DA98F60EDCF0E286083CD4B00A9BB4CFB7408DA161AD3B241FA060207
+            28CC0583BCA209420B27B3575D4677EA1D9DB568384FE5F74AB4AF8117303C22
+            73636333FA7D81D67A41EBF929340774CAF001ED354D9D0CA7ADB42335499E47
+            A3930482778A1750869351B8D5BC95AB68022D34902EB43127DB09BBF1FC87E2
+            031FFA68ACED5DA55DF20B00E34045F1D6E08CF59E61D760B44C11783F391B2C
+            13D4A3409EDBE83D6AB3BF5DF2F9CF7E2A5EF9F4AFC5FDDBAF45CF63FEA7C318
+            9F3EE425849D6465EEA4660032AAAE9ED3E9566CD558635D1D18ACEFC4FE8393
+            F89FFEE6CFE60F3E2B788E666D406A343A45505D1A9DC5BFFE6FFCABF1FC8BCF
+            C398C39C0B5065774F46B7DF07D0060936B5A238190FD16ACA0137BA549B1D51
+            B92AF8234647E707DE7CFB7E1C1C9DC2D0EDF8E257BE12AF7CE1CBF19D9FFCAE
+            78EEB9E752555ECEFD398888F57E275EBC79233A9851296A801AEC4E0B4A4373
+            8764E534F54AFB2897E05AE54EF59BB7141435B393E1244E4F4769FA7CF9CB5F
+            8D2F7CF92BF1BDDFF57BE2F9E79F47A811FE36A6D4D6465CDADBE619416CBB3D
+            DD73409A691A7A1E883FC1E16FFAAC01147D689027EA53E1DE40F0A1A60074FD
+            CBF89A95333483E3A3FDF8B55FFDE5189D1C61B2F56304E0EA3AD3BBD174931F
+            D56D2EA15DD6B9ECBFD1BC7415CC03ADFDDD58F37BC7F8567DD053990B11447A
+            8094DFAFF89D54070D6BF7CAB5F8D827BF376EE4879780228022B839705CE4BB
+            67DDBD2FC14367B32BD983611418C8E0B3937808F0AFFEC3FF3B7EE5FFF9C538
+            79783706A8F7E127E0E3510A571726809DCAAB008F3F80E317A76A3279A02C2E
+            473954DA4E7B3DEEEF1FC7CFFF1F7F3F7F00C90D4D68E670903F6C3D64F4C224
+            9A4FE29FFB437F286EBD7013F57BC608BD17376FBD102F7DE8C371F9DAB568F5
+            D11C040F2B2CF7797A38E55295E2684B9E4191F5003C00A3DB6F7EBD8A7C6777
+            BCD88001DC6EEF2FF8933F6D9C4F26498B3CC3B54A4761D5D52A945FF7D32560
+            54BED0B2BCE1791A4E34ABDEF7BA654EA776B3D9669E726673CA0ED0469E1F6B
+            19AE1019EEF731AE4479D27E1EA0AD596984F722F76A4A2269618E5970714E72
+            1E1DC617BFF04AFCD23FF87B311D1D2668D46EA906E10D6DD6090E3EE7DC179D
+            E719ABABA5C05C08FBA478415C53D56F723A68716EB4CB7D40D06063FB52EC5D
+            BB8E16F97D71E3D68B11FDCDEC23B543F921371F264F9C53F65976EF5BF0D039
+            FFA093A5920C0080E68960B24003F9D2E73F1B9FFEB55F897B776FE769EDFE20
+            D21233A6358579E87FF939410881F6901AD750CA077B6519562D40F3E5F8781A
+            FFE8573F4D1842878A335708143A32F1D09EF16C1CDFF7FDFF587CE2BBBF2B76
+            F72EC7F7FDE33F109BDBBBD159DFCAF429242D044C264E8740525741239D977C
+            2E42EC08689CC2EB09F76D7F7CE931070FD34C776152D7043C02BC002467A841
+            1D33DF33C7B3F4C1ECCABA18EFA70108459192A464BE92BF48667A46DC6F70E2
+            4905B2098605050A41B312E65BDDFA271B557BCC43F74CE4F06D225C4E52E08D
+            077CE72700C8E73E139FF9D43F8AA3AFFF4A49831B2F6B3A54E5550D151013AC
+            10F2F1E821F4AA5746BE31DEAB34308D1BEE3C60DADF02DED8D98D0F7EF8C3F1
+            918F7E227FF12DBFA4C57C546BF3E33841DD95B336FD58D5FA9977EF53F028CC
+            53EFFBA07B657902D01E147AD45B854A2938BC733B3EFBE9DF88CF7EE6D7E3C1
+            5D4631846B0D26F52B5BD5F71542D3320792A33C67AE73E7340C40851F9E4E60
+            BE4E7CF5D5D763882AEF01CBFE20B59FC577018E2C1F41F8BE1FF8FEF8037FF0
+            0FC6AD175F8CAD4B7BBCABF0692B9B8F6752004D08A5264D07953D4FDAAA548F
+            A6EDE07FFEA13BDD73915BD2012E9773F3D7BED22E3B772EB15A69ABA9409EB1
+            010C9E75C795F69865D144A453967306623AD39877B95A2B71A1E4F16899B5D3
+            E4F24434C1467A3B9297DFE97172568DC7FE2845F9AC56573BF315A6B32E384B
+            C874AE8609CACE74A24179FD3CC0FFF7FFEECFC77878149B9830F3196614C023
+            5D6A67992E5B5BBE1FC58DA7074F8DF7AAE6E4A4F7C6E6565C41D3B8FEDCAD04
+            0FBF61C26EA152C5B47399D7F6D9E7C92BD051007AAFB8F73578C8A682868CB8
+            5418ED5C3A5EF61C8F4E7302D55166767A1CC7870771847F78EF6E1CDCBF17A3
+            E3A3383C3C8C939313349272308C07C4F8F19CBFB1EAE62FD5F7E3D321E6CA56
+            DCBFC7BBFB4730572BEE3D3C88AD9DEDFC912C7FB7C65FCCFBA1DFFB4FE27F5F
+            EE46541C04B6FC31AA1C61A9B1B2A64FE12DF779821523BF0255CC0C99B69A8C
+            E59FA2956D7A0C38740A642DAC66AA6D9F7916994C57CFED64568A2CF9E61DCF
+            257DA1A32EEB60C570969DAA3FFF7B69923CEA169A1D985ECD9C4182BE829DFB
+            328C337343B34DEE48213E41326184AB2663C95313C0CD77D64A0526954680BB
+            8559B09A4DA0432B0EEEBC1977DF7A337F3ED49F46B88316D9AECC2E7FA1D09F
+            705CDF283F4AE5B2BAF32AB5483887639B9D7B5243F40438C143F36A7D035352
+            B01084D50AF1BEE604ABBB8A731E44079DCDAFA69D7479AF00C8FB1A3C6AA7D8
+            E90CADC5AC8841952E85A426133AB73B08E556987705B33AEA4D61D6E1F024BD
+            3F9073321A2678386988D19BCB7C8E689B1B8F9A10CFBDFCD1B87AF56A9E389E
+            B635DDE16ECC9C7CD429113A8AB7A7048F049012942E855CCD2023D41218B949
+            ECF51D1D23B02691AFE6373F15805C74F5E3A33429EE5C17F84627103733CFE5
+            13812B6282D77631CE3A78157ABE116874EEF9386FADE9CA7B8FE77C56BF0A80
+            52554B35887B37A9384F92BFF97BC169820108E9EA22CE5C55421D9EE619EECC
+            54C365FF94FA588E492F9660CC59BDCE62AA779F6917F1FF01CA4CA44295AA3E
+            080000000049454E44AE426082}
+          FileName = 'D:\Download\resistor3.PNG'
+        end>
+      Position.X = 16.000000000000000000
+      Position.Y = 16.000000000000000000
+      Size.Width = 271.000000000000000000
+      Size.Height = 55.000000000000000000
+      Size.PlatformDefault = False
+      object Rectangle1: TRectangle
+        Fill.Color = claRed
+        Position.X = 88.000000000000000000
+        Position.Y = 1.000000000000000000
+        Size.Width = 11.000000000000000000
+        Size.Height = 53.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+      end
+      object Rectangle2: TRectangle
+        Fill.Color = claRed
+        Position.X = 118.000000000000000000
+        Position.Y = 5.000000000000000000
+        Size.Width = 12.000000000000000000
+        Size.Height = 45.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+      end
+      object Rectangle3: TRectangle
+        Fill.Color = claRed
+        Position.X = 148.000000000000000000
+        Position.Y = 5.000000000000000000
+        Size.Width = 12.000000000000000000
+        Size.Height = 45.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+      end
+      object Rectangle4: TRectangle
+        Fill.Color = claRed
+        Position.X = 185.000000000000000000
+        Position.Y = 1.000000000000000000
+        Size.Width = 11.000000000000000000
+        Size.Height = 53.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+      end
+    end
+    object edtResiValue: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 3
+      Text = '2.2 k'#937' '#177' 2%'
+      Position.X = 8.000000000000000000
+      Position.Y = 432.000000000000000000
+      Size.Width = 169.000000000000000000
+      Size.Height = 34.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object btnResiCopy: TButton
+      Position.X = 224.000000000000000000
+      Position.Y = 433.000000000000000000
+      Size.Width = 73.000000000000000000
+      Size.Height = 33.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 4
+      Text = 'Copy'
+      OnClick = btnResiCopyClick
+    end
+  end
+  object ColorAnimation1: TColorAnimation
+    Duration = 0.200000002980232200
+    StartValue = claWhite
+    StopValue = claWhite
+  end
+end
