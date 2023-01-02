@@ -2,21 +2,21 @@ object HeaderFooterForm: THeaderFooterForm
   Left = 0
   Top = 0
   Caption = 'Header Footer Form'
-  ClientHeight = 568
-  ClientWidth = 868
+  ClientHeight = 612
+  ClientWidth = 1100
   FormFactor.Width = 1440
   FormFactor.Height = 900
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
   DesignerMasterStyle = 0
   object Header: TToolBar
-    Size.Width = 868.000000000000000000
+    Size.Width = 1100.000000000000000000
     Size.Height = 48.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
     object HeaderLabel: TLabel
       Align = Contents
-      Size.Width = 868.000000000000000000
+      Size.Width = 1100.000000000000000000
       Size.Height = 48.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = 'toollabel'
@@ -27,8 +27,8 @@ object HeaderFooterForm: THeaderFooterForm
   object Footer: TToolBar
     Align = Bottom
     Anchors = [akLeft, akBottom]
-    Position.Y = 528.000000000000000000
-    Size.Width = 868.000000000000000000
+    Position.Y = 572.000000000000000000
+    Size.Width = 1100.000000000000000000
     Size.Height = 40.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'bottomtoolbar'
@@ -47,7 +47,8 @@ object HeaderFooterForm: THeaderFooterForm
     end
   end
   object pnlBaseConv: TPanel
-    Position.Y = 46.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 79.000000000000000000
     Size.Width = 297.000000000000000000
     Size.Height = 442.000000000000000000
     Size.PlatformDefault = False
@@ -267,8 +268,8 @@ object HeaderFooterForm: THeaderFooterForm
     end
   end
   object pnlPiCalc: TPanel
-    Position.X = 89.000000000000000000
-    Position.Y = 46.000000000000000000
+    Position.X = 45.000000000000000000
+    Position.Y = 107.000000000000000000
     Size.Width = 321.000000000000000000
     Size.Height = 442.000000000000000000
     Size.PlatformDefault = False
@@ -322,8 +323,8 @@ object HeaderFooterForm: THeaderFooterForm
     end
   end
   object pnlPwdGen: TPanel
-    Position.X = 153.000000000000000000
-    Position.Y = 45.000000000000000000
+    Position.X = 90.000000000000000000
+    Position.Y = 105.000000000000000000
     Size.Width = 295.000000000000000000
     Size.Height = 467.000000000000000000
     Size.PlatformDefault = False
@@ -494,8 +495,8 @@ object HeaderFooterForm: THeaderFooterForm
     end
   end
   object pnlColor: TPanel
-    Position.X = 519.000000000000000000
-    Position.Y = 56.000000000000000000
+    Position.X = 220.000000000000000000
+    Position.Y = 59.000000000000000000
     Size.Width = 312.000000000000000000
     Size.Height = 394.000000000000000000
     Size.PlatformDefault = False
@@ -728,8 +729,8 @@ object HeaderFooterForm: THeaderFooterForm
     end
   end
   object pnlMPG: TPanel
-    Position.X = 575.000000000000000000
-    Position.Y = 260.000000000000000000
+    Position.X = 341.000000000000000000
+    Position.Y = 211.000000000000000000
     Size.Width = 289.000000000000000000
     Size.Height = 242.000000000000000000
     Size.PlatformDefault = False
@@ -872,8 +873,8 @@ object HeaderFooterForm: THeaderFooterForm
     end
   end
   object pnlResi: TPanel
-    Position.X = 270.000000000000000000
-    Position.Y = 56.000000000000000000
+    Position.X = 132.000000000000000000
+    Position.Y = 34.000000000000000000
     Size.Width = 311.000000000000000000
     Size.Height = 474.000000000000000000
     Size.PlatformDefault = False
@@ -1592,7 +1593,7 @@ object HeaderFooterForm: THeaderFooterForm
       Size.PlatformDefault = False
     end
     object btnResiCopy: TButton
-      Position.X = 224.000000000000000000
+      Position.X = 230.000000000000000000
       Position.Y = 433.000000000000000000
       Size.Width = 73.000000000000000000
       Size.Height = 33.000000000000000000
@@ -1606,5 +1607,59 @@ object HeaderFooterForm: THeaderFooterForm
     Duration = 0.200000002980232200
     StartValue = claWhite
     StopValue = claWhite
+  end
+  object pnlFactorise: TPanel
+    Position.X = 568.000000000000000000
+    Position.Y = 56.000000000000000000
+    Size.Width = 265.000000000000000000
+    Size.Height = 225.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 46
+    object edtNumber: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 0
+      Position.X = 8.000000000000000000
+      Position.Y = 34.000000000000000000
+      Size.Width = 249.000000000000000000
+      Size.Height = 33.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object edtFactors: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 1
+      Position.X = 8.000000000000000000
+      Position.Y = 136.000000000000000000
+      Size.Width = 249.000000000000000000
+      Size.Height = 33.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object btnFactorise: TButton
+      Position.X = 8.000000000000000000
+      Position.Y = 75.000000000000000000
+      Size.Width = 249.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Text = 'Factorise'
+      OnClick = btnFactoriseClick
+    end
+    object Label1: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 193.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Number to factorise:'
+      TabOrder = 4
+    end
+    object Label2: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 115.000000000000000000
+      Size.Width = 169.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Factors:'
+      TabOrder = 5
+    end
   end
 end

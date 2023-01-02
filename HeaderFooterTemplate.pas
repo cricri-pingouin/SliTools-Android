@@ -113,6 +113,12 @@ type
     edtResiValue: TEdit;
     btnResiCopy: TButton;
     rectColor: TRectangle;
+    pnlFactorise: TPanel;
+    edtNumber: TEdit;
+    edtFactors: TEdit;
+    btnFactorise: TButton;
+    Label1: TLabel;
+    Label2: TLabel;
 
     procedure ToClipboard(s: string);
     // Pi calculator
@@ -171,11 +177,15 @@ type
       const EventInfo: TGestureEventInfo; var Handled: Boolean);
     procedure Grid1CellClick(const Column: TColumn; const Row: Integer);
     procedure btnResiCopyClick(Sender: TObject);
+    procedure btnFactoriseClick(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
   end;
+
+type
+  TIntArray = array of Integer; // Delphi: TArray<Integer>;
 
 var
   HeaderFooterForm: THeaderFooterForm;
@@ -238,6 +248,79 @@ Begin
   For I := 1 To MyExponent - 1 Do
     Result := Result * MyValue;
 End;
+
+// Factorise
+function findLowestFactor(num: Int64; factors: TIntArray): Integer;
+var
+  start: Integer;
+  I: Int64;
+begin
+  if Length(factors) > 0 then
+    start := factors[High(factors)] // factors[-1] i.e. last entry.
+  else
+    start := 2;
+  I := start;
+  while I < num do // Int64 can not be used as index in for-loop' use while loop
+  begin
+    if num mod I = 0 then
+      exit(I);
+    Inc(I);
+  end;
+  exit(0);
+end;
+
+procedure findPrimeFactors(num: Int64; var factors: TIntArray);
+var
+  factor: Integer;
+begin
+  factor := findLowestFactor(num, factors);
+  if factor > 0 then
+  begin
+    // factors := factors + [factor];
+    SetLength(factors, Length(factors) + 1);
+    factors[High(factors)] := factor;
+    findPrimeFactors(num div factor, factors);
+  end
+  else
+  begin
+    // factors := factors + [Integer(num)];
+    SetLength(factors, Length(factors) + 1);
+    factors[High(factors)] := Integer(num);
+  end;
+end;
+
+procedure THeaderFooterForm.btnFactoriseClick(Sender: TObject);
+var
+  factors: TIntArray;
+  I, powcount: Integer;
+  Result: Int64;
+  FactorsString: string;
+begin
+  // Instead of user input, I use the testValue above.
+  findPrimeFactors(strtoint(edtNumber.Text), factors);
+  // edtFactors.Text := '';
+  // for I in factors do
+  // edtFactors.Text := edtFactors.Text + '*' + inttostr(I);
+  // edtFactors.Text := Copy(edtFactors.Text, 2, 999);
+  // if (edtFactors.Text = edtNumber.Text) then
+  // edtFactors.Text := edtNumber.Text + ' is prime';
+  powcount := 0;
+  for I := 0 to Length(factors) - 1 do
+  begin
+    if (factors[I] <> factors[I + 1]) then
+      FactorsString := FactorsString + '*' + IntToStr(factors[I])
+    else
+      Inc(powcount);
+    if (factors[I] <> factors[I + 1]) and (powcount > 0) then
+    begin
+      FactorsString := FactorsString + '^' + IntToStr(powcount + 1);
+      powcount := 0;
+    end;
+  end;
+  edtFactors.Text := Copy(FactorsString, 2, 999);
+  if (edtFactors.Text = edtNumber.Text) then
+    edtFactors.Text := edtNumber.Text + ' is prime';
+end;
 
 // Resitor code
 procedure THeaderFooterForm.Grid1CellClick(const Column: TColumn;
@@ -569,7 +652,7 @@ begin
     if (D = 99) then
     begin
       E := E * 100 + D;
-      inc(L, 2);
+      Inc(L, 2);
     end
     else if (C = M) then
     begin
@@ -723,7 +806,7 @@ Begin
   else if radFromHex.IsChecked then
     FromInteger := AnyBaseToDecimal(edtFrom.Text, 16)
   else if radFromCustom.IsChecked then
-    FromInteger := AnyBaseToDecimal(edtFrom.Text, StrToInt(edtFromBase.Text))
+    FromInteger := AnyBaseToDecimal(edtFrom.Text, strtoint(edtFromBase.Text))
   else
     FromInteger := Roman2Dec(edtFrom.Text);
   // Convert
@@ -736,7 +819,7 @@ Begin
   else if radToHex.IsChecked then
     ToString := DecimalToAnyBase(FromInteger, 16)
   else if radToCustom.IsChecked then
-    ToString := DecimalToAnyBase(FromInteger, StrToInt(edtToBase.Text))
+    ToString := DecimalToAnyBase(FromInteger, strtoint(edtToBase.Text))
   else
     ToString := Dec2Roman(FromInteger);
   // Display result
@@ -847,8 +930,8 @@ Begin
   Begin
     If Numbers > 9 Then
       Numbers := 9;
-    si := StrToInt('1' + Replicate('0', Numbers - 1));
-    sf := StrToInt(Replicate('9', Numbers));
+    si := strtoint('1' + Replicate('0', Numbers - 1));
+    sf := strtoint(Replicate('9', Numbers));
     n := FloatToStr(si + Random(sf));
     Result := Result + Copy(n, 0, Numbers);
   End;
@@ -885,14 +968,14 @@ End;
 
 procedure THeaderFooterForm.btnGenPwdClick(Sender: TObject);
 begin
-  edtRandomPwd.Text := RandomPassword(StrToInt(edtPwdLength.Text));
+  edtRandomPwd.Text := RandomPassword(strtoint(edtPwdLength.Text));
   ToClipboard(edtRandomPwd.Text);
 end;
 
 procedure THeaderFooterForm.btnSpeakablePwdClick(Sender: TObject);
 begin
-  edtSpeakablePwd.Text := GeneratePass(StrToInt(edtPwdSyllables.Text),
-    StrToInt(edtPwdTrailNum.Text));
+  edtSpeakablePwd.Text := GeneratePass(strtoint(edtPwdSyllables.Text),
+    strtoint(edtPwdTrailNum.Text));
   ToClipboard(edtSpeakablePwd.Text);
 end;
 
@@ -964,10 +1047,10 @@ var
   // HSL
   Lum, Hue, Sat: Single;
 begin
-  R := StrToInt(edtR.Text);
-  G := StrToInt(edtG.Text);
-  B := StrToInt(edtB.Text);
-  ThisColor:= $FF000000 + R shl 16 + G shl 8 + B;
+  R := strtoint(edtR.Text);
+  G := strtoint(edtG.Text);
+  B := strtoint(edtB.Text);
+  ThisColor := $FF000000 + R shl 16 + G shl 8 + B;
   ColorPanel1.Color := ThisColor;
   rectColor.Fill.Color := ThisColor;
   // HSV and HSL
@@ -1091,6 +1174,11 @@ begin
         pnlResi.Visible := true;
         HeaderLabel.Text := 'SliTools: resistor code';
       end;
+    6:
+      begin
+        pnlFactorise.Visible := true;
+        HeaderLabel.Text := 'SliTools: factorise';
+      end;
   end;
 end;
 
@@ -1110,7 +1198,7 @@ begin
       TPanel(component).Size.Width := HeaderFooterForm.Width;
       // TPanel(component).Size.Height := HeaderFooterForm.Height - Header.Height - Footer.Height - 50;
       TPanel(component).Visible := False;
-      inc(I);
+      Inc(I);
     end;
   trackPanel.Width := Footer.Width - 16;
   trackPanel.Max := I;
