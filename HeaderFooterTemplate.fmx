@@ -239,6 +239,7 @@ object HeaderFooterForm: THeaderFooterForm
       object edtTo: TEdit
         Touch.InteractiveGestures = [LongTap, DoubleTap]
         TabOrder = 44
+        ReadOnly = True
         Position.X = 8.000000000000000000
         Position.Y = 173.000000000000000000
         Size.Width = 185.000000000000000000
@@ -341,6 +342,7 @@ object HeaderFooterForm: THeaderFooterForm
       object edtRandomPwd: TEdit
         Touch.InteractiveGestures = [LongTap, DoubleTap]
         TabOrder = 1
+        ReadOnly = True
         Position.X = 8.000000000000000000
         Position.Y = 250.000000000000000000
         Size.Width = 263.000000000000000000
@@ -456,6 +458,7 @@ object HeaderFooterForm: THeaderFooterForm
       object edtSpeakablePwd: TEdit
         Touch.InteractiveGestures = [LongTap, DoubleTap]
         TabOrder = 40
+        ReadOnly = True
         Position.X = 8.000000000000000000
         Position.Y = 114.000000000000000000
         Size.Width = 263.000000000000000000
@@ -873,8 +876,8 @@ object HeaderFooterForm: THeaderFooterForm
     end
   end
   object pnlResi: TPanel
-    Position.X = 132.000000000000000000
-    Position.Y = 34.000000000000000000
+    Position.X = 772.000000000000000000
+    Position.Y = 56.000000000000000000
     Size.Width = 311.000000000000000000
     Size.Height = 474.000000000000000000
     Size.PlatformDefault = False
@@ -896,8 +899,6 @@ object HeaderFooterForm: THeaderFooterForm
       Viewport.Width = 285.000000000000000000
       Viewport.Height = 313.000000000000000000
       object Column1: TColumn
-        OnGesture = Column1Gesture
-        OnTap = Column1Tap
         Size.Width = 70.000000000000000000
       end
       object Column2: TColumn
@@ -1585,6 +1586,7 @@ object HeaderFooterForm: THeaderFooterForm
     object edtResiValue: TEdit
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       TabOrder = 3
+      ReadOnly = True
       Text = '2.2 k'#937' '#177' 2%'
       Position.X = 8.000000000000000000
       Position.Y = 432.000000000000000000
@@ -1609,12 +1611,12 @@ object HeaderFooterForm: THeaderFooterForm
     StopValue = claWhite
   end
   object pnlFactorise: TPanel
-    Position.X = 568.000000000000000000
-    Position.Y = 56.000000000000000000
+    Position.X = 455.000000000000000000
+    Position.Y = 252.000000000000000000
     Size.Width = 265.000000000000000000
     Size.Height = 225.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 46
+    TabOrder = 47
     object edtNumber: TEdit
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       TabOrder = 0
@@ -1627,8 +1629,9 @@ object HeaderFooterForm: THeaderFooterForm
     object edtFactors: TEdit
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       TabOrder = 1
+      ReadOnly = True
       Position.X = 8.000000000000000000
-      Position.Y = 136.000000000000000000
+      Position.Y = 135.000000000000000000
       Size.Width = 249.000000000000000000
       Size.Height = 33.000000000000000000
       Size.PlatformDefault = False
@@ -1643,7 +1646,7 @@ object HeaderFooterForm: THeaderFooterForm
       Text = 'Factorise'
       OnClick = btnFactoriseClick
     end
-    object Label1: TLabel
+    object lblNumberToFactorise: TLabel
       Position.X = 8.000000000000000000
       Position.Y = 8.000000000000000000
       Size.Width = 193.000000000000000000
@@ -1652,7 +1655,7 @@ object HeaderFooterForm: THeaderFooterForm
       Text = 'Number to factorise:'
       TabOrder = 4
     end
-    object Label2: TLabel
+    object lblFactors: TLabel
       Position.X = 8.000000000000000000
       Position.Y = 115.000000000000000000
       Size.Width = 169.000000000000000000
@@ -1660,6 +1663,81 @@ object HeaderFooterForm: THeaderFooterForm
       Size.PlatformDefault = False
       Text = 'Factors:'
       TabOrder = 5
+    end
+    object btnFactorsCopy: TButton
+      Position.X = 8.000000000000000000
+      Position.Y = 176.000000000000000000
+      Size.Width = 249.000000000000000000
+      Size.Height = 33.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 6
+      Text = 'Copy'
+      OnClick = btnFactorsCopyClick
+    end
+  end
+  object pnlFraction: TPanel
+    Position.X = 672.000000000000000000
+    Position.Y = 154.000000000000000000
+    Size.Width = 265.000000000000000000
+    Size.Height = 225.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 46
+    object edtFromFrac: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 0
+      Position.X = 8.000000000000000000
+      Position.Y = 34.000000000000000000
+      Size.Width = 249.000000000000000000
+      Size.Height = 33.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object edtToFrac: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 1
+      ReadOnly = True
+      Position.X = 8.000000000000000000
+      Position.Y = 136.000000000000000000
+      Size.Width = 249.000000000000000000
+      Size.Height = 33.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object btnToFrac: TButton
+      Position.X = 8.000000000000000000
+      Position.Y = 75.000000000000000000
+      Size.Width = 249.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Text = 'To fraction'
+      OnClick = btnToFracClick
+    end
+    object lblFromFrac: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 193.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Number to convert to fraction:'
+      TabOrder = 4
+    end
+    object lblToFrac: TLabel
+      Position.X = 8.000000000000000000
+      Position.Y = 115.000000000000000000
+      Size.Width = 169.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Fraction:'
+      TabOrder = 5
+    end
+    object btnFracCopy: TButton
+      Position.X = 8.000000000000000000
+      Position.Y = 177.000000000000000000
+      Size.Width = 249.000000000000000000
+      Size.Height = 33.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 6
+      Text = 'Copy'
+      OnClick = btnFracCopyClick
     end
   end
 end

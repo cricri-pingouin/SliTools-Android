@@ -9,7 +9,7 @@ uses
 
 begin
   Application.Initialize;
-  Application.FormFactor.Orientations := [TFormOrientation.Portrait];
+  Application.FormFactor.Orientations := [TFormOrientation.Portrait, TFormOrientation.InvertedPortrait];
   Application.CreateForm(THeaderFooterForm, HeaderFooterForm);
   Application.Run;
 end.

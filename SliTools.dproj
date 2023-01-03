@@ -115,6 +115,7 @@
         <DCC_F>false</DCC_F>
         <DCC_K>false</DCC_K>
         <OrientationPortrait>true</OrientationPortrait>
+        <OrientationPortraitUpsideDown>true</OrientationPortraitUpsideDown>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <Android_SplashGravity>center</Android_SplashGravity>
@@ -231,6 +232,9 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <BT_BuildType>Debug</BT_BuildType>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <BT_BuildType>Debug</BT_BuildType>

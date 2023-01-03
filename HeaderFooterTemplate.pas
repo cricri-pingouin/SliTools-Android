@@ -3,12 +3,10 @@
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes,
-  System.Variants, FMX.Platform, System.Rtti,
-  FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
-  FMX.Edit, FMX.Controls.Presentation, FMX.Memo.Types, FMX.ScrollBox, FMX.Memo,
-  FMX.Colors, FMX.Layouts, FMX.ListBox, FMX.Grid.Style, FMX.Grid, FMX.Ani,
-  FMX.Objects;
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Rtti,
+  FMX.Platform, FMX.Graphics, FMX.Forms, FMX.Dialogs, FMX.StdCtrls, FMX.Memo,
+  FMX.Colors, FMX.Grid, FMX.Ani, FMX.Objects, FMX.Grid.Style, FMX.ScrollBox,
+  FMX.Memo.Types, FMX.Controls.Presentation, FMX.Edit, FMX.Controls, FMX.Types;
 // FMX.Platform: clipboard
 
 type
@@ -117,9 +115,17 @@ type
     edtNumber: TEdit;
     edtFactors: TEdit;
     btnFactorise: TButton;
-    Label1: TLabel;
-    Label2: TLabel;
-
+    lblNumberToFactorise: TLabel;
+    lblFactors: TLabel;
+    pnlFraction: TPanel;
+    edtFromFrac: TEdit;
+    edtToFrac: TEdit;
+    btnToFrac: TButton;
+    lblFromFrac: TLabel;
+    lblToFrac: TLabel;
+    btnFactorsCopy: TButton;
+    btnFracCopy: TButton;
+    // Clipboard
     procedure ToClipboard(s: string);
     // Pi calculator
     procedure ClearText;
@@ -166,18 +172,22 @@ type
     procedure edtMileChange(Sender: TObject);
     procedure edtLitreChange(Sender: TObject);
     procedure edtGallonChange(Sender: TObject);
-    // Form
-    procedure FormCreate(Sender: TObject);
-    procedure trackPanelChange(Sender: TObject);
+    // Resistor calculator
     procedure Grid1DrawColumnCell(Sender: TObject; const Canvas: TCanvas;
       const Column: TColumn; const Bounds: TRectF; const Row: Integer;
       const Value: TValue; const State: TGridDrawStates);
-    procedure Column1Tap(Sender: TObject; const Point: TPointF);
-    procedure Column1Gesture(Sender: TObject;
-      const EventInfo: TGestureEventInfo; var Handled: Boolean);
     procedure Grid1CellClick(const Column: TColumn; const Row: Integer);
     procedure btnResiCopyClick(Sender: TObject);
+    // Factorise
     procedure btnFactoriseClick(Sender: TObject);
+    procedure btnFactorsCopyClick(Sender: TObject);
+    // Fraction
+    procedure btnToFracClick(Sender: TObject);
+    procedure btnFracCopyClick(Sender: TObject);
+    // Form
+    procedure FormCreate(Sender: TObject);
+    procedure trackPanelChange(Sender: TObject);
+
   private
     { Private declarations }
   public
@@ -249,7 +259,142 @@ Begin
     Result := Result * MyValue;
 End;
 
+// Decimal to fraction
+
+Function gcd(a, b: Int64): Int64;
+{ return gcd of a and b }
+{ used to reduce fraction to lowest terms }
+{ Euclids method }
+var
+  g, z: Integer;
+Begin
+  g := b;
+  If b <> 0 then
+    while g <> 0 do
+    Begin
+      z := a mod g;
+      a := g;
+      g := z;
+    end;
+  Result := a;
+end;
+
+{ *************** ConvertfloatFractionString ************* }
+function convertfloattofractionstring(N: extended; maxdenom: Integer;
+  multipleof: Boolean): string;
+{ Convert floating point number, Nto a mixed  fraction display  string.
+
+  If not constrained, N could have very large denominator (up to 19 or 20 digits
+  for extended type),  "Maxdenom" specifies the largest denominator to be
+  considered  If "Multipleof" is false, the best representation of N using
+  denominators  in  the range of 2  to maxdenom is returned.  If "multipleof" is
+  true, only  mixed fractions with maxdenom as the denominator are returned.
+  Returned fraction strings are always in lowest terms, e.g. 4/16 will be
+  returned as 1/4
+}
+var
+  decpart, offset: extended;
+  intpart, denom: Integer;
+  valtable: array of extended;
+  I: Integer;
+  newdenominator, newnumerator, g: Integer;
+  s: string;
+  minerror: extended;
+  fract, e: extended;
+  num, m: Integer;
+begin
+  decpart := frac(N);
+  intpart := trunc(N);
+  denom := trunc(decpart * 1E8);
+  m := trunc(1E8);
+  // maxdecimals:=8;
+
+  if multipleof
+  then { express fractional part as nearest multiple of 1/Maxdenom }
+  begin
+    offset := 1 / maxdenom / 2;
+    setlength(valtable, maxdenom + 1);
+    for I := 0 to maxdenom - 1 do
+      valtable[I] := I / maxdenom + offset;
+    I := 0;
+    while valtable[I] <= decpart do
+      inc(I);
+    g := gcd(I, maxdenom);
+    if g > 1 then
+    begin
+      newnumerator := I div g;
+      newdenominator := maxdenom div g;
+    end
+    else
+    begin
+      newnumerator := I;
+      newdenominator := maxdenom;
+    end;
+    if (intpart = 0) then
+    begin
+      if (I = 0) then
+        s := '0'
+      else
+        s := format('%d/%d', [newnumerator, newdenominator]);
+    end
+    else { intpart>0 }
+    begin
+      if (I = 0) then
+        s := inttostr(intpart)
+      else
+        s := format('%d %d/%d', [intpart, newnumerator, newdenominator]);
+    end;
+  end
+  else { express fractional part as best estimate a/b with b<=maxdenom }
+  begin
+    g := gcd(denom, m);
+    newnumerator := denom div g;
+    newdenominator := m div g;
+    if (newdenominator >= maxdenom) then
+    begin
+      { find closest approximation }
+      minerror := 1;
+      fract := decpart;
+      for I := 2 to maxdenom do
+      begin
+        num := round(fract * I);
+        if num = 0 then
+          num := 1;
+        e := fract - num / I;
+        if (abs(e) < abs(minerror)) then
+        begin
+          minerror := e;
+          newnumerator := num;
+          newdenominator := I;
+        end;
+      end;
+    end;
+    If intpart <> 0 then
+      if newnumerator > 0 then
+        s := format('%d  %d/%d', [intpart, newnumerator, newdenominator])
+      else
+        s := inttostr(intpart)
+    else if newnumerator > 0 then
+      s := format('%d/%d', [newnumerator, newdenominator])
+    else
+      s := '0';
+  end;
+  Result := s;
+end;
+
+procedure THeaderFooterForm.btnToFracClick(Sender: TObject);
+begin
+  edtToFrac.Text := convertfloattofractionstring(strtofloat(edtFromFrac.Text),
+    99999, False);
+end;
+
+procedure THeaderFooterForm.btnFracCopyClick(Sender: TObject);
+begin
+  ToClipboard(edtToFrac.Text);
+end;
+
 // Factorise
+
 function findLowestFactor(num: Int64; factors: TIntArray): Integer;
 var
   start: Integer;
@@ -264,7 +409,7 @@ begin
   begin
     if num mod I = 0 then
       exit(I);
-    Inc(I);
+    inc(I);
   end;
   exit(0);
 end;
@@ -277,14 +422,14 @@ begin
   if factor > 0 then
   begin
     // factors := factors + [factor];
-    SetLength(factors, Length(factors) + 1);
+    setlength(factors, Length(factors) + 1);
     factors[High(factors)] := factor;
     findPrimeFactors(num div factor, factors);
   end
   else
   begin
     // factors := factors + [Integer(num)];
-    SetLength(factors, Length(factors) + 1);
+    setlength(factors, Length(factors) + 1);
     factors[High(factors)] := Integer(num);
   end;
 end;
@@ -293,27 +438,19 @@ procedure THeaderFooterForm.btnFactoriseClick(Sender: TObject);
 var
   factors: TIntArray;
   I, powcount: Integer;
-  Result: Int64;
   FactorsString: string;
 begin
-  // Instead of user input, I use the testValue above.
   findPrimeFactors(strtoint(edtNumber.Text), factors);
-  // edtFactors.Text := '';
-  // for I in factors do
-  // edtFactors.Text := edtFactors.Text + '*' + inttostr(I);
-  // edtFactors.Text := Copy(edtFactors.Text, 2, 999);
-  // if (edtFactors.Text = edtNumber.Text) then
-  // edtFactors.Text := edtNumber.Text + ' is prime';
   powcount := 0;
   for I := 0 to Length(factors) - 1 do
   begin
     if (factors[I] <> factors[I + 1]) then
-      FactorsString := FactorsString + '*' + IntToStr(factors[I])
+      FactorsString := FactorsString + '*' + inttostr(factors[I])
     else
-      Inc(powcount);
+      inc(powcount);
     if (factors[I] <> factors[I + 1]) and (powcount > 0) then
     begin
-      FactorsString := FactorsString + '^' + IntToStr(powcount + 1);
+      FactorsString := FactorsString + '^' + inttostr(powcount + 1);
       powcount := 0;
     end;
   end;
@@ -322,7 +459,13 @@ begin
     edtFactors.Text := edtNumber.Text + ' is prime';
 end;
 
-// Resitor code
+procedure THeaderFooterForm.btnFactorsCopyClick(Sender: TObject);
+begin
+  ToClipboard(edtFactors.Text);
+end;
+
+// Resistor code
+
 procedure THeaderFooterForm.Grid1CellClick(const Column: TColumn;
   const Row: Integer);
 var
@@ -434,7 +577,7 @@ begin
     Ohms := Ohms / 1000;
     Prefix := ' M';
   End;
-  edtResiValue.Text := FloatToStr(Round(Ohms * 100) / 100) + Prefix + 'Ω ' +
+  edtResiValue.Text := FloatToStr(round(Ohms * 100) / 100) + Prefix + 'Ω ' +
     Tolerance;
 end;
 
@@ -509,35 +652,24 @@ begin
   end;
 end;
 
-procedure THeaderFooterForm.Column1Gesture(Sender: TObject;
-  const EventInfo: TGestureEventInfo; var Handled: Boolean);
-begin
-  Rectangle1.Fill.Color := TAlphaColors.Blue;
-end;
-
-procedure THeaderFooterForm.Column1Tap(Sender: TObject; const Point: TPointF);
-begin
-  Rectangle1.Fill.Color := TAlphaColors.Blue;
-end;
-
 // MPG
 
 procedure THeaderFooterForm.CalcMPG;
 begin
   if (edtKm.Text = '') or (edtLitre.Text = '') then
     exit;
-  edtLtKm.Text := FloatToStr(Round(strtofloat(edtLitre.Text) /
+  edtLtKm.Text := FloatToStr(round(strtofloat(edtLitre.Text) /
     strtofloat(edtKm.Text) * 10000) / 100);
   edtKPL.Text := FloatToStr
-    (Round(strtofloat(edtKm.Text) / strtofloat(edtLitre.Text) * 100) / 100);
-  edtMPG.Text := FloatToStr(Round(strtofloat(edtMile.Text) /
+    (round(strtofloat(edtKm.Text) / strtofloat(edtLitre.Text) * 100) / 100);
+  edtMPG.Text := FloatToStr(round(strtofloat(edtMile.Text) /
     strtofloat(edtGallon.Text) * 100) / 100);
 end;
 
 procedure THeaderFooterForm.edtKmChange(Sender: TObject);
 begin
   // 1.609344
-  edtMile.Text := FloatToStr(Round(strtofloat(edtKm.Text) / 1.609344 *
+  edtMile.Text := FloatToStr(round(strtofloat(edtKm.Text) / 1.609344 *
     100) / 100);
   CalcMPG;
 end;
@@ -545,7 +677,7 @@ end;
 procedure THeaderFooterForm.edtMileChange(Sender: TObject);
 begin
   // 1.609344
-  edtKm.Text := FloatToStr(Round(strtofloat(edtMile.Text) * 1.609344 *
+  edtKm.Text := FloatToStr(round(strtofloat(edtMile.Text) * 1.609344 *
     100) / 100);
   CalcMPG;
 end;
@@ -553,7 +685,7 @@ end;
 procedure THeaderFooterForm.edtLitreChange(Sender: TObject);
 begin
   // 4.54609
-  edtGallon.Text := FloatToStr(Round(strtofloat(edtLitre.Text) / 4.54609 *
+  edtGallon.Text := FloatToStr(round(strtofloat(edtLitre.Text) / 4.54609 *
     100) / 100);
   CalcMPG;
 end;
@@ -561,7 +693,7 @@ end;
 procedure THeaderFooterForm.edtGallonChange(Sender: TObject);
 begin
   // 4.54609
-  edtLitre.Text := FloatToStr(Round(strtofloat(edtGallon.Text) * 4.54609 *
+  edtLitre.Text := FloatToStr(round(strtofloat(edtGallon.Text) * 4.54609 *
     100) / 100);
   CalcMPG;
 end;
@@ -616,60 +748,60 @@ end;
 Procedure THeaderFooterForm.CalcPi;
 var
   // BBC Basic variables. Delphi longint is 32 bits.
-  B: array of Int64;
-  A, C, D, E, I, L, M, P: Int64;
+  b: array of Int64;
+  a, C, D, e, I, L, m, P: Int64;
   // Added for Delphi version
   temp: string;
   j, t: Integer;
 begin
   ClearText();
   // Using 5270 gives circa 1500 digits and is quick even on Android, original 5m+ value hangs Android
-  M := 5270;
+  m := 5270;
   /// 5368709; // floor( (2^31 - 1)/400 )
   // DIM B%(M%) in BBC Basic declares an array [0..M%], i.e. M% + 1 elements
-  SetLength(B, M + 1);
-  for I := 0 to M do
-    B[I] := 20;
-  E := 0;
+  setlength(b, m + 1);
+  for I := 0 to m do
+    b[I] := 20;
+  e := 0;
   L := 2;
 
   // FOR C% = M% TO 14 STEP -7
   // In Delphi (or at least Delphi 7) the step size in a for loop has to be 1.
   // So the BBC Basic FOR loop has been replaced by a repeat loop.
-  C := M;
+  C := m;
   repeat
     D := 0;
-    A := C * 2 - 1;
+    a := C * 2 - 1;
     for P := C downto 1 do
     begin
-      D := D * P + B[P] * $64; // hex notation copied from BBC version
-      B[P] := D mod A;
-      D := D div A;
-      dec(A, 2);
+      D := D * P + b[P] * $64; // hex notation copied from BBC version
+      b[P] := D mod a;
+      D := D div a;
+      dec(a, 2);
     end;
 
     // The BBC CASE statement here amounts to a series of if ... else
     if (D = 99) then
     begin
-      E := E * 100 + D;
-      Inc(L, 2);
+      e := e * 100 + D;
+      inc(L, 2);
     end
-    else if (C = M) then
+    else if (C = m) then
     begin
-      AddText(Format('%2.1f', [1.0 * (D div 100) / 10.0]));
-      E := D mod 100;
+      AddText(format('%2.1f', [1.0 * (D div 100) / 10.0]));
+      e := D mod 100;
     end
     else
     begin
       // PRINT RIGHT$(STRING$(L%,"0") + STR$(E% + D% DIV 100),L%);
       // This can't be done so concisely in Delphi 7
-      SetLength(temp, L);
+      setlength(temp, L);
       for j := 1 to L do
         temp[j] := '0';
-      temp := temp + IntToStr(E + D div 100);
+      temp := temp + inttostr(e + D div 100);
       t := Length(temp);
       AddText(Copy(temp, t - L + 1, L));
-      E := D mod 100;
+      e := D mod 100;
       L := 2;
     end;
     dec(C, 7);
@@ -754,7 +886,7 @@ Begin
     If (j > Base) Or (j = 0) Then
     Begin
       showmessage('Character "' + Copy(Value, I, 1) + '" is incorrect for base '
-        + IntToStr(Base));
+        + inttostr(Base));
       Result := 0;
       exit;
     End;
@@ -815,7 +947,7 @@ Begin
   else if radToOct.IsChecked then
     ToString := DecimalToAnyBase(FromInteger, 8)
   else if radToDec.IsChecked then
-    ToString := IntToStr(FromInteger)
+    ToString := inttostr(FromInteger)
   else if radToHex.IsChecked then
     ToString := DecimalToAnyBase(FromInteger, 16)
   else if radToCustom.IsChecked then
@@ -908,13 +1040,13 @@ Function GeneratePass(syllables, Numbers: Integer): String;
   End;
 
 Const
-  conso: Array [0 .. 19] Of Char = ('b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
-    'm', 'n', 'p', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z');
-  vocal: Array [0 .. 4] Of Char = ('a', 'e', 'i', 'o', 'u');
+  conso: Array [0 .. 20] Of Char = ('b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
+    'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z');
+  vowel: Array [0 .. 4] Of Char = ('a', 'e', 'i', 'o', 'u');
 Var
   I: Integer;
   si, sf: longint;
-  n: String;
+  N: String;
 Begin
   Result := '';
   Randomize;
@@ -922,18 +1054,18 @@ Begin
     For I := 1 To syllables Do
     Begin
       Result := Result + conso[Random(19)];
-      Result := Result + vocal[Random(4)];
+      Result := Result + vowel[Random(4)];
     End;
   If Numbers = 1 Then
-    Result := Result + IntToStr(Random(9))
+    Result := Result + inttostr(Random(9))
   Else If Numbers >= 2 Then
   Begin
     If Numbers > 9 Then
       Numbers := 9;
     si := strtoint('1' + Replicate('0', Numbers - 1));
     sf := strtoint(Replicate('9', Numbers));
-    n := FloatToStr(si + Random(sf));
-    Result := Result + Copy(n, 0, Numbers);
+    N := FloatToStr(si + Random(sf));
+    Result := Result + Copy(N, 0, Numbers);
   End;
 End;
 
@@ -984,15 +1116,15 @@ end;
 procedure THeaderFooterForm.ColorPanel1Change(Sender: TObject);
 var
   ThisColor: TAlphaColor;
-  R, G, B: Integer;
+  R, g, b: Integer;
 begin
   ThisColor := ColorPanel1.Color;
   R := (ThisColor and $FF0000) shr 16;
-  G := (ThisColor and $00FF00) shr 8;
-  B := (ThisColor and $0000FF);
-  edtR.Text := IntToStr(R);
-  edtG.Text := IntToStr(G);
-  edtB.Text := IntToStr(B);
+  g := (ThisColor and $00FF00) shr 8;
+  b := (ThisColor and $0000FF);
+  edtR.Text := inttostr(R);
+  edtG.Text := inttostr(g);
+  edtB.Text := inttostr(b);
   CalculateValues;
 end;
 
@@ -1039,48 +1171,48 @@ end;
 procedure THeaderFooterForm.CalculateValues();
 var
   ThisColor: TAlphaColor;
-  R, G, B: Integer;
+  R, g, b: Integer;
   // CMYK
-  C, M, Y, Rp, Gp, Bp, Kp: Single;
+  C, m, Y, Rp, Gp, Bp, Kp: Single;
   // HSV
   RGBmin, RGBmax, RGBdelta, H, s, V: Single;
   // HSL
   Lum, Hue, Sat: Single;
 begin
   R := strtoint(edtR.Text);
-  G := strtoint(edtG.Text);
-  B := strtoint(edtB.Text);
-  ThisColor := $FF000000 + R shl 16 + G shl 8 + B;
+  g := strtoint(edtG.Text);
+  b := strtoint(edtB.Text);
+  ThisColor := $FF000000 + R shl 16 + g shl 8 + b;
   ColorPanel1.Color := ThisColor;
   rectColor.Fill.Color := ThisColor;
   // HSV and HSL
   RGBmin := R;
-  if G < RGBmin then
-    RGBmin := G;
-  if B < RGBmin then
-    RGBmin := B;
+  if g < RGBmin then
+    RGBmin := g;
+  if b < RGBmin then
+    RGBmin := b;
   RGBmax := R;
-  if G > RGBmax then
-    RGBmax := G;
-  if B > RGBmax then
-    RGBmax := B;
+  if g > RGBmax then
+    RGBmax := g;
+  if b > RGBmax then
+    RGBmax := b;
   RGBdelta := RGBmax - RGBmin;
   // Normalised values for CMYK and HSL
   Rp := R / 255;
-  Gp := G / 255;
-  Bp := B / 255;
+  Gp := g / 255;
+  Bp := b / 255;
   // CMYK
   Kp := 1 - RGBmax / 255;
   if (Kp = 1) then
   begin
     C := 0;
-    M := 0;
+    m := 0;
     Y := 0;
   end
   else
   begin
     C := (1 - Rp - Kp) / (1 - Kp);
-    M := (1 - Gp - Kp) / (1 - Kp);
+    m := (1 - Gp - Kp) / (1 - Kp);
     Y := (1 - Bp - Kp) / (1 - Kp);
   end;
 
@@ -1101,11 +1233,11 @@ begin
     if (s <> 0.0) then
     begin
       if R = RGBmax then
-        H := (G - B) / RGBdelta
-      else if G = RGBmax then
-        H := 2.0 + (B - R) / RGBdelta
-      else if B = RGBmax then
-        H := 4.0 + (R - G) / RGBdelta
+        H := (g - b) / RGBdelta
+      else if g = RGBmax then
+        H := 2.0 + (b - R) / RGBdelta
+      else if b = RGBmax then
+        H := 4.0 + (R - g) / RGBdelta
     end
     else
       H := -1.0;
@@ -1118,20 +1250,20 @@ begin
   if (RGBmin = RGBmax) then
     Sat := 0.0
   else
-    Sat := RGBdelta / 255 / (1 - Abs(2 * Lum - 1));
-  Sat := Round(Sat * 100);
-  Lum := Round(Lum * 100);
+    Sat := RGBdelta / 255 / (1 - abs(2 * Lum - 1));
+  Sat := round(Sat * 100);
+  Lum := round(Lum * 100);
   Hue := H;
   // Copyable values
   edtRGB.Text := 'RGB(' + edtR.Text + ',' + edtG.Text + ',' + edtB.Text + ')';
-  edtHEX.Text := '#' + IntToHex(R, 2) + IntToHex(G, 2) + IntToHex(B, 2);
-  edtHSV.Text := 'HSV(' + IntToStr(Round(H)) + ',' +
-    IntToStr(Round(s * 100 / 255)) + ',' + IntToStr(Round(V * 100 / 255)) + ')';
-  edtHSL.Text := 'HSL(' + IntToStr(Round(Hue)) + ',' + IntToStr(Round(Sat)) +
-    ',' + IntToStr(Round(Lum)) + ')';
-  edtCMYK.Text := 'CMYK(' + IntToStr(Round(C * 100)) + ',' +
-    IntToStr(Round(M * 100)) + ',' + IntToStr(Round(Y * 100)) + ',' +
-    IntToStr(Round(Kp * 100)) + ')';
+  edtHEX.Text := '#' + IntToHex(R, 2) + IntToHex(g, 2) + IntToHex(b, 2);
+  edtHSV.Text := 'HSV(' + inttostr(round(H)) + ',' +
+    inttostr(round(s * 100 / 255)) + ',' + inttostr(round(V * 100 / 255)) + ')';
+  edtHSL.Text := 'HSL(' + inttostr(round(Hue)) + ',' + inttostr(round(Sat)) +
+    ',' + inttostr(round(Lum)) + ')';
+  edtCMYK.Text := 'CMYK(' + inttostr(round(C * 100)) + ',' +
+    inttostr(round(m * 100)) + ',' + inttostr(round(Y * 100)) + ',' +
+    inttostr(round(Kp * 100)) + ')';
 end;
 
 // Panels
@@ -1143,41 +1275,46 @@ begin
   for component in HeaderFooterForm do
     if (component is TPanel) then
       TPanel(component).Visible := False;
-  case Round(trackPanel.Value) of
+  case round(trackPanel.Value) of
     0:
       begin
-        pnlBaseConv.Visible := true;
+        pnlBaseConv.Visible := True;
         HeaderLabel.Text := 'SliTools: base converter';
       end;
     1:
       begin
-        pnlPiCalc.Visible := true;
-        HeaderLabel.Text := 'SliTools: Pi calculator';
+        pnlPwdGen.Visible := True;
+        HeaderLabel.Text := 'SliTools: password generator';
       end;
     2:
       begin
-        pnlPwdGen.Visible := true;
-        HeaderLabel.Text := 'SliTools: password generator';
+        pnlColor.Visible := True;
+        HeaderLabel.Text := 'SliTools: color picker';
       end;
     3:
       begin
-        pnlColor.Visible := true;
-        HeaderLabel.Text := 'SliTools: color picker';
+        pnlResi.Visible := True;
+        HeaderLabel.Text := 'SliTools: resistor code';
       end;
     4:
       begin
-        pnlMPG.Visible := true;
+        pnlMPG.Visible := True;
         HeaderLabel.Text := 'SliTools: mileage calculator';
       end;
     5:
       begin
-        pnlResi.Visible := true;
-        HeaderLabel.Text := 'SliTools: resistor code';
+        pnlFactorise.Visible := True;
+        HeaderLabel.Text := 'SliTools: factorise';
       end;
     6:
       begin
-        pnlFactorise.Visible := true;
-        HeaderLabel.Text := 'SliTools: factorise';
+        pnlFraction.Visible := True;
+        HeaderLabel.Text := 'SliTools: decimal to fraction';
+      end;
+    7:
+      begin
+        pnlPiCalc.Visible := True;
+        HeaderLabel.Text := 'SliTools: Pi calculator';
       end;
   end;
 end;
@@ -1198,12 +1335,13 @@ begin
       TPanel(component).Size.Width := HeaderFooterForm.Width;
       // TPanel(component).Size.Height := HeaderFooterForm.Height - Header.Height - Footer.Height - 50;
       TPanel(component).Visible := False;
-      Inc(I);
+      inc(I);
     end;
   trackPanel.Width := Footer.Width - 16;
   trackPanel.Max := I;
-  pnlBaseConv.Visible := true;
+  pnlBaseConv.Visible := True;
   HeaderLabel.Text := 'SliTools: base converter';
+  // Initialise resistor code values
   V0 := 2;
   V1 := 2;
   V2 := 2;
