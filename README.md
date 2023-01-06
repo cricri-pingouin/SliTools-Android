@@ -1,6 +1,6 @@
 # SlitTools-Android
-Small colelction of tools for Android.
-Written in Delphi 11; since a apk won't be less than 8MB with Delphi FireMonkey, I might as well bundle several tools in the same package.
+Small collection of tools for Android.
+Written in Delphi 11; since an apk won't be less than 8MB with Delphi FireMonkey, I might as well bundle several tools in the same package.
 Currently includes:
 - Base converter (including roman numerals)
 - Password generator (random and speakable)
