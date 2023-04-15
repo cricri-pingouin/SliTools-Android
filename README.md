@@ -14,4 +14,4 @@ Currently includes:
 Hopefully more to be added later.
 
 Update 15/04/2023:
-No updates in a while, I've lost inrterest and app contains all the tools I intended to code. So this is on a hiatus until I pick both inspiration for new tools and the will to implement them.
+I've lost interest and app contains all the tools I intended to include. So this is on a hiatus until I pick both inspiration for new tools and the will to implement them.
